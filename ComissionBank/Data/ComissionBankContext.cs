@@ -14,6 +14,6 @@ namespace ComissionBank.Data
         {
         }
 
-        public DbSet<ComissionBank.Models.Teste> Teste { get; set; }
+        public DbSet<Advisor> Advisor { get; set; }
     }
 }
