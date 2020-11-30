@@ -18,9 +18,11 @@ namespace ComissionBank.Models.Services
 
         public void Insert(Advisor advisor)
         {
-            _context.Advisor.Add(advisor);
+            _context.Add(advisor);
             _context.SaveChanges();
+
         }
+
 
         public void Remove(int id)
         {

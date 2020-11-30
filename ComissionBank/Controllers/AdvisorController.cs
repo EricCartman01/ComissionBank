@@ -16,15 +16,18 @@ namespace ComissionBank.Controllers
         {
             _advisorService = advisorService;
         }
+
         public IActionResult Index()
         {
-            List<Advisor> lista = new List<Advisor>();
+            /*List<Advisor> lista = new List<Advisor>();
             lista.Add(new Advisor(1, "Leonardo Gomes", "LM", "leonardo.gomes@bankrio.com.br"));
             lista.Add(new Advisor(2, "Raquel Pena", "RP", "Raquel.Pena@bankrio.com.br"));
             lista.Add(new Advisor(3, "Carlos Rocha", "KD", "carlos.rocha@bankrio.com.br"));
             lista.Add(new Advisor(4, "Leonardo Principe", "KD", "leonardo.principe@bankrio.com.br"));
 
-            return View(lista);
+            return View(lista);*/
+            var list = _advisorService.FindAll();
+            return View(list);
         }
 
         public IActionResult Create()

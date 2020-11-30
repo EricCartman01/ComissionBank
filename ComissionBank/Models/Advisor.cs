@@ -24,8 +24,20 @@ namespace ComissionBank.Models
         public double PAN { get; set; }
         //public ICollection<ComissionRecord> Comissions { get; set; } = new List<ComissionRecord>();
 
+        public Advisor()
+        {
+
+        }
         public Advisor(string email, string password)
         {
+            Email = email;
+            Password = password;
+        }
+         
+        public Advisor(string name, string initials, string email, string password)
+        {
+            Name = name;
+            Initials = initials;
             Email = email;
             Password = password;
         }
@@ -37,20 +49,6 @@ namespace ComissionBank.Models
             Initials = initials;
             Email = email;
         }
-
-        public Advisor(int id, string name, string initials, string email, string password, double netCertification, double net, double netBirthday, double netTotal, double xPC, double cMBC, double pROTC, double iTAZ, double jURC, double pAN) : this(id, name, initials, email)
-        {
-            Password = password;
-            NetCertification = netCertification;
-            Net = net;
-            NetBirthday = netBirthday;
-            NetTotal = netTotal;
-            XPC = xPC;
-            CMBC = cMBC;
-            PROTC = pROTC;
-            ITAZ = iTAZ;
-            JURC = jURC;
-            PAN = pAN;
-        }
+        
     }
 }
