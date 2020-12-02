@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComissionBank.Models.Services;
 using ComissionBank.Models;
+using ComissionBank.Services.Exceptions;
 
 namespace ComissionBank.Controllers
 {
@@ -41,6 +42,46 @@ namespace ComissionBank.Controllers
         {
             _advisorService.Insert(advisor);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _advisorService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Advisor advisor)
+        {
+            if(id != advisor.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _advisorService.Update(advisor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbconcurrencyException)
+            {
+                return BadRequest();
+            }
         }
 
         public IActionResult Details(int? id)
