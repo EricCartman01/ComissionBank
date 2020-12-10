@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
+using ComissionBank.Data;
+using ComissionBank.Models;
+using ComissionBank.Services.Exceptions;
 
-namespace ComissionBank.Models.Services
+//**** MUDEI NAMESPACE !!! *** 
+namespace ComissionBank.Services
 {
     public class AdvisorService
     {
@@ -43,15 +46,20 @@ namespace ComissionBank.Models.Services
                 _context.Update(advisor);
                 _context.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
-                //throw new DbUpdateConcurrencyException(e.Message);
+                throw new DbConcurrencyException(e.Message);
             }
         }
 
         public List<Advisor> FindAll()
         {
             return _context.Advisor.ToList();
+        }
+
+        public Advisor FindByName(string name)
+        {
+            return _context.Advisor.FirstOrDefault(x => x.Name == name);
         }
 
         public Advisor FindById(int id)

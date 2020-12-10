@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComissionBank.Models.Services;
+using ComissionBank.Services;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
 
@@ -23,6 +23,7 @@ namespace ComissionBank.Controllers
             var list = _advisorService.FindAll();
             return View(list);
         }
+
 
         public IActionResult Create()
         {
@@ -50,7 +51,6 @@ namespace ComissionBank.Controllers
                 return NotFound();
             }
             return View(obj);
-
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace ComissionBank.Controllers
             {
                 return NotFound();
             }
-            catch (DbconcurrencyException)
+            catch (DbConcurrencyException)
             {
                 return BadRequest();
             }

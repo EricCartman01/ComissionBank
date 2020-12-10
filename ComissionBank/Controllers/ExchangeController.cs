@@ -5,11 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComissionBank.Models;
 using ComissionBank.Models.Enums;
+using ComissionBank.Models.ViewModels;
+using ComissionBank.Services;
+using ComissionBank.Services.Exceptions;
 
 namespace ComissionBank.Controllers
 {
     public class ExchangeController : Controller
     {
+        private readonly ExchangeService _exchangeService;
+        //private readonly AdvisorService _advisorService;
+
+        public ExchangeController(ExchangeService exchangeService)
+        {
+            _exchangeService = exchangeService;
+        }
         public IActionResult Index()
         {
             List<Exchange> exchanges = new List<Exchange>();
@@ -24,11 +34,98 @@ namespace ComissionBank.Controllers
             exchanges.Add(new Exchange(1020, new DateTime(2020, 03, 30), advisor3, Order.Compra, Currency.Dolar, 7000, 200, 1.70, ComissionType.Nominal, 10.00, 1.00, 200.00));
             exchanges.Add(new Exchange(1020, new DateTime(2020, 04, 10), advisor4, Order.Compra, Currency.Dolar, 9000, 100, 2.30, ComissionType.Nominal, 30.00, 1.00, 200.00));
             return View(exchanges);
+
+            //var exchanges = _exchangeService.FindAll();
+            //return View(exchanges);
         }
 
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Create(Exchange exchange)
+        {
+            _exchangeService.Insert(exchange);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _exchangeService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+
+        }
+
+        /*public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _exchangeService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Advisor> advisors = _advisorService.FindAll();
+            ExchangeFormViewModel viewModel = new ExchangeFormViewModel { Exchange = obj, Advisors = advisors };
+            return View(obj);
+
+        }*/
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Edit(int id, Exchange exchange)
+        {
+            if(id != exchange.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _exchangeService.Update(exchange);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _exchangeService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj); 
         }
     }
 }

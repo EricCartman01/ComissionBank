@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ComissionBank.Data;
-using ComissionBank.Models.Services;
+using ComissionBank.Services;
 
 namespace ComissionBank
 {
@@ -45,6 +45,7 @@ namespace ComissionBank
                     builder.MigrationsAssembly("ComissionBank")));
 
             services.AddScoped<AdvisorService>();
+            services.AddScoped<ExchangeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

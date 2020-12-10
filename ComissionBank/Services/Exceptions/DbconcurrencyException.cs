@@ -2,9 +2,9 @@
 
 namespace ComissionBank.Services.Exceptions
 {
-    public class DbconcurrencyException : ApplicationException
+    public class DbConcurrencyException : ApplicationException
     {
-        public DbconcurrencyException(string message) : base(message)
+        public DbConcurrencyException(string message) : base(message)
         {
 
         }

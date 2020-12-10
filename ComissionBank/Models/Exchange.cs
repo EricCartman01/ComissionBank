@@ -11,8 +11,9 @@ namespace ComissionBank.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public Advisor Advisor { get; set; }
+        //public int AdvisorId { get; set; }
         public string FirstName { get; set; }
-        public int AdvisorId { get; set; }
+
         //public string House { get; set; }
         //public Client Client { get; set; }
         public Order Order { get; set; }
@@ -24,8 +25,9 @@ namespace ComissionBank.Models
         public double Spread { get; set; }
         public Double Comission { get; set; }
         public double NetValue { get; set; }
+        //public ICollection<Advisor> Advisors { get; set; } = new List<Advisor>();
 
-        public Exchange(DateTime date)
+        public Exchange()
         {
         }
 
@@ -44,5 +46,6 @@ namespace ComissionBank.Models
             Comission = comission;
             NetValue = netValue;
         }
+
     }
 }

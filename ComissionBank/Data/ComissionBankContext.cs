@@ -15,5 +15,6 @@ namespace ComissionBank.Data
         }
 
         public DbSet<Advisor> Advisor { get; set; }
+        public DbSet<Exchange> Exchange { get; set; }
     }
 }

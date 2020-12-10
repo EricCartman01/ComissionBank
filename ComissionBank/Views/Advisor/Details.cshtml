@@ -1,0 +1,39 @@
+﻿@model Advisor
+@{
+    ViewData["Title"] = "Detalhes do Assessor";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<div>
+    <div class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Initials)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Initials)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>&nbsp;&nbsp;
+    <a asp-action="Index">Voltar</a>
+</div>
