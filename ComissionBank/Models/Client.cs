@@ -13,6 +13,7 @@ namespace ComissionBank.Models
         public string Cpf { get; set; }
         public string Telefone { get; set; }
         public DateTime Birthday { get; set; }
+        public string Address { get; set; }
 
         public Client()
         {
@@ -27,5 +28,7 @@ namespace ComissionBank.Models
             Cpf = cpf;
             Telefone = telefone;
         }
+
+        
     }
 }

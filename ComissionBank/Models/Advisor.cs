@@ -22,8 +22,8 @@ namespace ComissionBank.Models
         public double ITAZ { get; set; }
         public double JURC { get; set; }
         public double PAN { get; set; }
-        public string Matrix { get; set; }
-        //public ICollection<ComissionRecord> Comissions { get; set; } = new List<ComissionRecord>();
+        //public string Matrix { get; set; }
+        public ICollection<Comission> Comissions { get; set; } = new List<Comission>();
 
         public Advisor()
         {

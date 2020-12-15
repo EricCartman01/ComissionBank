@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ComissionBank.Services.Exceptions;
 
 namespace ComissionBank.Services
-{
+{ 
     public class ExchangeService
     {
         private readonly ComissionBankContext _context;
@@ -21,7 +21,7 @@ namespace ComissionBank.Services
         public void Insert(Exchange exchange)
         {
             _context.Exchange.Add(exchange);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
         }
 
         public void Remove(int id)
@@ -51,7 +51,7 @@ namespace ComissionBank.Services
 
         public List<Exchange> FindAll()
         {
-            return _context.Exchange.ToList();
+            return _context.Exchange.ToList(); 
         }
 
         public Exchange FindById(int id)
