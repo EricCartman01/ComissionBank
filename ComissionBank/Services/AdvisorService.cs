@@ -72,13 +72,9 @@ namespace ComissionBank.Services
             return _context.Advisor.FirstOrDefault(x => x.Initials == initials);
         }
 
-        public void LoadXPS()
+        public int GetByInitials(string initials)
         {
-            return;
-        }
-
-        public void LoadXP()
-        {
+            return _context.Advisor.Where(x => x.Initials == initials).Select(x => x.Id).FirstOrDefault();
 
         }
     }

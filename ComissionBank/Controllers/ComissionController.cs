@@ -13,9 +13,9 @@ namespace ComissionBank.Controllers
         private readonly ComissionService _comissionService;
         public IActionResult Index()
         {
-            //var list = _comissionService.FindAll();
-            //return View(list);
-            return View();
+            var list = _comissionService.FindAll();
+            return View(list);
+            //return View();
         }
 
         public IActionResult Create()

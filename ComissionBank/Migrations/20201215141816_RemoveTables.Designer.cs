@@ -3,14 +3,16 @@ using System;
 using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComissionBank.Migrations
 {
     [DbContext(typeof(ComissionBankContext))]
-    partial class ComissionBankContextModelSnapshot : ModelSnapshot
+    [Migration("20201215141816_RemoveTables")]
+    partial class RemoveTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,6 +149,20 @@ namespace ComissionBank.Migrations
                     b.HasIndex("AdvisorId");
 
                     b.ToTable("Exchange");
+                });
+
+            modelBuilder.Entity("ComissionBank.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Details");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("ComissionBank.Models.Comission", b =>

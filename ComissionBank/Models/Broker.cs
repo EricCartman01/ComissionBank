@@ -9,12 +9,16 @@ namespace ComissionBank.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Details { get; set; }
-        public string Email { get; set; }
 
         public Broker()
         {
 
+        }
+
+        public Broker(int id, string name)
+        {
+            Id = id;
+            Name = name;
         }
     }
 }

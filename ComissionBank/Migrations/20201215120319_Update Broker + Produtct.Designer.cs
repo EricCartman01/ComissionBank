@@ -3,14 +3,16 @@ using System;
 using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComissionBank.Migrations
 {
     [DbContext(typeof(ComissionBankContext))]
-    partial class ComissionBankContextModelSnapshot : ModelSnapshot
+    [Migration("20201215120319_Update Broker + Produtct")]
+    partial class UpdateBrokerProdutct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +57,22 @@ namespace ComissionBank.Migrations
                     b.ToTable("Advisor");
                 });
 
+            modelBuilder.Entity("ComissionBank.Models.Broker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Details");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Broker");
+                });
+
             modelBuilder.Entity("ComissionBank.Models.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -86,6 +104,8 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("AdvisorValue");
 
+                    b.Property<int?>("BrokerId");
+
                     b.Property<string>("ClientCode");
 
                     b.Property<int?>("ClientId");
@@ -98,6 +118,8 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("PercentualAdvisor");
 
+                    b.Property<int?>("ProductId");
+
                     b.Property<double>("Value");
 
                     b.Property<int>("Year");
@@ -108,7 +130,11 @@ namespace ComissionBank.Migrations
 
                     b.HasIndex("AdvisorId");
 
+                    b.HasIndex("BrokerId");
+
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Comission");
                 });
@@ -149,6 +175,22 @@ namespace ComissionBank.Migrations
                     b.ToTable("Exchange");
                 });
 
+            modelBuilder.Entity("ComissionBank.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Details");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Product");
+                });
+
             modelBuilder.Entity("ComissionBank.Models.Comission", b =>
                 {
                     b.HasOne("ComissionBank.Models.Advisor", "Advisor")
@@ -156,9 +198,17 @@ namespace ComissionBank.Migrations
                         .HasForeignKey("AdvisorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("ComissionBank.Models.Broker", "Broker")
+                        .WithMany()
+                        .HasForeignKey("BrokerId");
+
                     b.HasOne("ComissionBank.Models.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId");
+
+                    b.HasOne("ComissionBank.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("ComissionBank.Models.Exchange", b =>

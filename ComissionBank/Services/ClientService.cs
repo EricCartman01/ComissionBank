@@ -29,8 +29,8 @@ namespace ComissionBank.Services
 
         public string GetIdByCpf(Comission comission)
         {
-            var _Cpf = _context.Client.Where(x => x.Cpf == comission.Client.Cpf).Select(x => x.Cpf);
-            return "123";
+            var _Cpf = _context.Client.Where(x => x.Cpf == comission.Client.Cpf).Select(x => x.Cpf).FirstOrDefault();
+            return _Cpf;
         }
 
         public void Insert(Client client)

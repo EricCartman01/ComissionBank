@@ -46,8 +46,9 @@ namespace ComissionBank
 
             services.AddScoped<AdvisorService>();
             services.AddScoped<ExchangeService>();
-            services.AddScoped<ProductService>();
-            services.AddScoped<BrokerService>();
+            services.AddScoped<ComissionService>();
+            //services.AddScoped<ProductService>();
+            //services.AddScoped<BrokerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
