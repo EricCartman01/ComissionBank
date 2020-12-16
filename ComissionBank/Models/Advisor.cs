@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security;
+using System.Security.Cryptography;
 
 namespace ComissionBank.Models
 {
@@ -50,6 +52,6 @@ namespace ComissionBank.Models
             Initials = initials;
             Email = email;
         }
-        
+
     }
 }

@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using ComissionBank.Data;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
+using System.Security.Cryptography;
 
-//**** MUDEI NAMESPACE !!! *** 
 namespace ComissionBank.Services
 {
     public class AdvisorService
@@ -21,6 +21,11 @@ namespace ComissionBank.Services
 
         public void Insert(Advisor advisor)
         {
+            if(advisor.Password == "")
+            {
+                advisor.Password = "funcionaki"; //GetRandomAlphanumericString(8);
+            }
+            
             _context.Add(advisor);
             _context.SaveChanges();
 
@@ -77,5 +82,34 @@ namespace ComissionBank.Services
             return _context.Advisor.Where(x => x.Initials == initials).Select(x => x.Id).FirstOrDefault();
 
         }
+
+        public static string GetRandomString(int length, IEnumerable<char> characterSet)
+        {
+            if (length < 0)
+                throw new ArgumentException("length must not be negative", "length");
+            if (length > int.MaxValue / 8) // 250 million
+                throw new ArgumentException("length is too big", "length");
+            if (characterSet == null)
+                throw new ArgumentNullException("characterSet");
+            var characterArray = characterSet.Distinct().ToArray();
+            if (characterArray.Length == 0)
+                throw new ArgumentException("characterSet must not be empty", "characterSet");
+
+            var bytes = new byte[length * 8];
+            new RNGCryptoServiceProvider().GetBytes(bytes);
+            var result = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                ulong value = BitConverter.ToUInt64(bytes, i * 8);
+                result[i] = characterArray[value % (uint)characterArray.Length];
+            }
+            return new string(result);
+        }
+        public string GetRandomAlphanumericString(int length)
+        {
+            const string alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789";
+            return GetRandomString(length, alphanumericCharacters);
+        }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ComissionBank.Services;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
+using System.Security.Cryptography;
 
 namespace ComissionBank.Controllers
 {
@@ -34,6 +35,10 @@ namespace ComissionBank.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Advisor advisor)
         {
+            if(advisor.Password == null){
+                advisor.Password = _advisorService.GetRandomAlphanumericString(8);
+                //return RedirectToAction(nameof(Index));
+            }
             _advisorService.Insert(advisor);
             return RedirectToAction(nameof(Index));
         }
