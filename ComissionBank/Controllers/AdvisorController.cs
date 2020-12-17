@@ -37,7 +37,6 @@ namespace ComissionBank.Controllers
         {
             if(advisor.Password == null){
                 advisor.Password = _advisorService.GetRandomAlphanumericString(8);
-                //return RedirectToAction(nameof(Index));
             }
             _advisorService.Insert(advisor);
             return RedirectToAction(nameof(Index));

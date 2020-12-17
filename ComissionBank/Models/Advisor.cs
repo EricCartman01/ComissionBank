@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security;
 using System.Security.Cryptography;
+using ComissionBank.Models.Enums;
 
 namespace ComissionBank.Models
 {
@@ -14,6 +15,17 @@ namespace ComissionBank.Models
         public string Initials { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Cpf { get; set; }
+        public DateTime Birthday { get; set; }
+        public string Telephone { get; set; }
+        public Bank Bank { get; set; }
+
+        public string BankAgency { get; set; }
+        public string BankAccount { get; set; }
+        public DateTime Initial { get; set; }
+        public bool Employee { get; set; }
+        public string Matrix { get; set; }
+        public string Cfp { get; set; }
         public double NetCertification { get; set; }
         public double Net { get; set; }
         public double NetBirthday { get; set; }

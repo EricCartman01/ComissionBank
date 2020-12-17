@@ -7,9 +7,9 @@
         Bovespa = 3,
         BTC = 4,
         COE = 5,
-        IndicacaoClientes = 6,
+        Indicacao = 6,
         IPO = 7,
-        IPOFeeRendaFisica = 8,
+        IPOFeeRendaFixa = 8,
         RendaFixa = 9
 
     }

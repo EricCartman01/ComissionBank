@@ -1,0 +1,28 @@
+﻿@model Broker
+@{
+    ViewData["Title"] = "Cadastrar Corretora";
+}
+<br />
+<br />
+<br />
+<h4>@ViewData["Title"]</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                <input asp-for="Details" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
