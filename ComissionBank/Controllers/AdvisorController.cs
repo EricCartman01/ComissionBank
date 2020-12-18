@@ -25,6 +25,11 @@ namespace ComissionBank.Controllers
             return View(list);
         }
 
+        public IActionResult Import()
+        {
+            var lista = _advisorService.Import();
+            return View(lista);
+        }
 
         public IActionResult Create()
         {

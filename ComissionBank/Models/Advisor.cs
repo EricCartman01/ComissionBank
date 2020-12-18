@@ -43,12 +43,13 @@ namespace ComissionBank.Models
         {
 
         }
-        public Advisor(string email, string password)
+
+        public Advisor(string name, string initials)
         {
-            Email = email;
-            Password = password;
+            Name = name;
+            Initials = initials;
         }
-         
+
         public Advisor(string name, string initials, string email, string password)
         {
             Name = name;

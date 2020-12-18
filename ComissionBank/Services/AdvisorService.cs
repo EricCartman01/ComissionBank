@@ -7,6 +7,7 @@ using ComissionBank.Data;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace ComissionBank.Services
 {
@@ -21,11 +22,6 @@ namespace ComissionBank.Services
 
         public void Insert(Advisor advisor)
         {
-            if(advisor.Password == "")
-            {
-                advisor.Password = "funcionaki"; //GetRandomAlphanumericString(8);
-            }
-            
             _context.Add(advisor);
             _context.SaveChanges();
 
@@ -81,6 +77,32 @@ namespace ComissionBank.Services
         {
             return _context.Advisor.Where(x => x.Initials == initials).Select(x => x.Id).FirstOrDefault();
 
+        }
+
+        public List<Advisor> Import()
+        {
+            string path = @"c:\temp\ASSESSORES_byLeo.csv";
+            List<Advisor> advisorsList = new List<Advisor>();
+
+            using (StreamReader streamReader = File.OpenText(path))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    string[] fields = streamReader.ReadLine().Split(',');
+                    string name = fields[0];
+                    string initials = fields[1];
+                    advisorsList.Add(new Advisor(name, initials));
+                }
+            }
+
+            /*List<Advisor> advisorsList1 = new List<Advisor>();
+            advisorsList1.Add(new Advisor("Leo", "LM"));
+            advisorsList1.Add(new Advisor("Leo2", "LM2"));
+            advisorsList1.Add(new Advisor("Leo3", "LM3"));
+            advisorsList1.Add(new Advisor("Leo4", "LM4"));
+            advisorsList1.Add(new Advisor("Leo5", "LM5"));*/
+
+            return advisorsList;
         }
 
         public static string GetRandomString(int length, IEnumerable<char> characterSet)
