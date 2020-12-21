@@ -92,15 +92,20 @@ namespace ComissionBank.Services
                     string name = fields[0];
                     string initials = fields[1];
                     advisorsList.Add(new Advisor(name, initials));
+
+                    if (! _context.Advisor.Any(x => x.Initials == initials))
+                    {
+                        Advisor advisor = new Advisor(name, initials);
+                        Insert(advisor);
+                    }
+                        
+                }
+
+                foreach(Advisor user in advisorsList)
+                {
+                    
                 }
             }
-
-            /*List<Advisor> advisorsList1 = new List<Advisor>();
-            advisorsList1.Add(new Advisor("Leo", "LM"));
-            advisorsList1.Add(new Advisor("Leo2", "LM2"));
-            advisorsList1.Add(new Advisor("Leo3", "LM3"));
-            advisorsList1.Add(new Advisor("Leo4", "LM4"));
-            advisorsList1.Add(new Advisor("Leo5", "LM5"));*/
 
             return advisorsList;
         }

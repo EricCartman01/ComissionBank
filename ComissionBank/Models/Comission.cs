@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComissionBank.Models;
 using ComissionBank.Models.Enums;
 
 namespace ComissionBank.Models

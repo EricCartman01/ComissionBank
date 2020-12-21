@@ -19,7 +19,8 @@ namespace ComissionBank.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var list = _productService.FindAll();
+            return View(list);
         }
 
         public IActionResult Create()
