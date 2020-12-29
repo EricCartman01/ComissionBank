@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Client>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<br />
+<br />
+<br />
+<h1 class="card-title text-center">@ViewData["Title"]</h1>
+
+<p><a asp-action="Import" class="btn btn-default">Importar Clientes</a></p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Cpf)</th>
+            <th>@Html.DisplayNameFor(model => model.Telefone)</th>
+            <th>@Html.DisplayNameFor(model => model.Birthday)</th>
+            <th>@Html.DisplayNameFor(model => model.Address)</th>
+            <th>@Html.DisplayNameFor(model => model.ClientCode)</th>
+            <th>@Html.DisplayNameFor(model => model.Details)</th>
+            <th>@Html.DisplayNameFor(model => model.AdvisorInitials)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(x => item.Name)</td>
+            <td>@Html.DisplayFor(x => item.Email)</td>
+            <td>@Html.DisplayFor(x => item.Cpf) </td>
+            <td>@Html.DisplayFor(x => item.Telefone) </td>
+            <td>@Html.DisplayFor(x => item.Birthday) </td>
+            <td>@Html.DisplayFor(x => item.Address) </td>
+            <td>@Html.DisplayFor(x => item.ClientCode) </td>
+            <td>@Html.DisplayFor(x => item.Details) </td>
+            <td>@Html.DisplayFor(x => item.AdvisorInitials) </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>&nbsp;
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>&nbsp;
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>&nbsp;
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+

@@ -28,7 +28,7 @@ namespace ComissionBank.Services
         }
 
 
-        public void Remove(int id)
+        public void Delete(int id)
         {
             var obj = _context.Advisor.Find(id);
             _context.Advisor.Remove(obj);
@@ -99,11 +99,6 @@ namespace ComissionBank.Services
                         Insert(advisor);
                     }
                         
-                }
-
-                foreach(Advisor user in advisorsList)
-                {
-                    
                 }
             }
 

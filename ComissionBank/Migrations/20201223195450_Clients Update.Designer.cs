@@ -3,14 +3,16 @@ using System;
 using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComissionBank.Migrations
 {
     [DbContext(typeof(ComissionBankContext))]
-    partial class ComissionBankContextModelSnapshot : ModelSnapshot
+    [Migration("20201223195450_Clients Update")]
+    partial class ClientsUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,8 +97,6 @@ namespace ComissionBank.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
-
-                    b.Property<string>("AdvisorInitials");
 
                     b.Property<DateTime>("Birthday");
 

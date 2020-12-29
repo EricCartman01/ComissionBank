@@ -14,21 +14,32 @@ namespace ComissionBank.Models
         public string Telefone { get; set; }
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
+        public string Details { get; set; }
+        public string ClientCode { get; set; }
+        public string AdvisorInitials { get; set; }
 
         public Client()
         {
 
         }
 
-        public Client(int id, string name, string email, string cpf, string telefone)
+        public Client(int id, string name, string email, string cpf, string telefone, DateTime birthday, string address, string details)
         {
             Id = id;
             Name = name;
             Email = email;
             Cpf = cpf;
             Telefone = telefone;
+            Birthday = birthday;
+            Address = address;
+            Details = details;
         }
 
-        
+        public Client(string name, string clientCode,string advisorInitials)
+        {
+            Name = name;
+            ClientCode = clientCode;
+            AdvisorInitials = advisorInitials;
+        }
     }
 }
