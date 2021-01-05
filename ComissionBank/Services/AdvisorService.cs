@@ -73,7 +73,7 @@ namespace ComissionBank.Services
             return _context.Advisor.FirstOrDefault(x => x.Initials == initials);
         }
 
-        public int GetByInitials(string initials)
+        public int GetIdByInitials(string initials)
         {
             return _context.Advisor.Where(x => x.Initials == initials).Select(x => x.Id).FirstOrDefault();
 

@@ -14,6 +14,8 @@ namespace ComissionBank.Services
     public class ExchangeService
     {
         private readonly ComissionBankContext _context;
+        private readonly AdvisorService _advisorService;
+        private readonly ClientService _clientService;
 
         public ExchangeService(ComissionBankContext comissionBankContext)
         {
@@ -75,15 +77,28 @@ namespace ComissionBank.Services
                     char[] delimiterChars = { ';'};
                     string[] fields = streamReader.ReadLine().Split(delimiterChars);
 
-                    /*if(fields[0] == "DATA")
-                    {
-                        streamReader.ReadLine();
-                    }
-                    if(!(fields[0] == "DATA"))*/
-                    
                     string data = fields[0];
                     string cpf = fields[1];
                     string name = fields[2];
+                    string advisorInitials = fields[3].Trim();
+
+                    if (!_context.Client.Any(x => x.Name == name))
+                    {
+                        Client newClient = new Client(name, cpf, advisorInitials);
+                    }
+
+                    int clientId = _clientService.GetIdByName(name);
+
+                    if (! _context.Advisor.Any(x => x.Initials == advisorInitials)){
+                        Advisor newAdvisor = new Advisor(name, advisorInitials, cpf);
+                        _advisorService.Insert(newAdvisor);
+                    }
+
+                    int advisorId = _advisorService.GetIdByInitials(advisorInitials);
+
+                    string house = fields[4];
+                    string order = fields[5];
+                    string currency = fields[6];
                     string strGrossValue = fields[3].Trim().Replace('$',' ');
                     //string strGrossValue = " $1.556.344,15 ".Trim().Replace('$',' ');
                     double grossValue = double.Parse(strGrossValue);
@@ -93,7 +108,6 @@ namespace ComissionBank.Services
             }
 
             return exchanges;
-
             
         }
 

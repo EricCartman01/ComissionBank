@@ -66,5 +66,12 @@ namespace ComissionBank.Models
             Email = email;
         }
 
+        public Advisor(string name, string initials, string cpf)
+        {
+            Name = name;
+            Initials = initials;
+            Cpf = cpf;
+        }
+
     }
 }

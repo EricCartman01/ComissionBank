@@ -32,12 +32,23 @@ namespace ComissionBank.Services
             return _context.Client.ToList();
         }
 
-        public string GetIdByCpf(Comission comission)
+        /*public string GetIdByCpf(Comission comission)
         {
             var _Cpf = _context.Client.Where(x => x.Cpf == comission.Client.Cpf).Select(x => x.Cpf).FirstOrDefault();
             return _Cpf;
+        }*/
+
+        public int GetIdByCpf(string cpf)
+        {
+            int clientId = _context.Client.Where(x => x.Cpf == cpf).Select(x => x.Id).FirstOrDefault();
+            return clientId;
         }
 
+        public int GetIdByName(string name)
+        {
+            int clientId = _context.Client.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
+            return clientId;
+        }
         public void Insert(Client client)
         {
             _context.Client.Add(client);
