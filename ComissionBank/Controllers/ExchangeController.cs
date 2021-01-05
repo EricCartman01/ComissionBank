@@ -127,5 +127,11 @@ namespace ComissionBank.Controllers
 
             return View(obj); 
         }
+
+        public IActionResult Import()
+        {
+            var exchanges = _exchangeService.Import();
+            return View(exchanges);
+        }
     }
 }

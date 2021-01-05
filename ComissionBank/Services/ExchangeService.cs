@@ -6,6 +6,8 @@ using ComissionBank.Data;
 using ComissionBank.Models;
 using Microsoft.EntityFrameworkCore;
 using ComissionBank.Services.Exceptions;
+using System.IO;
+using System.Globalization;
 
 namespace ComissionBank.Services
 { 
@@ -57,6 +59,42 @@ namespace ComissionBank.Services
         public Exchange FindById(int id)
         {
             return _context.Exchange.FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<Exchange> Import()
+        {
+            string path = @"c:\temp\cambio.csv";
+            List<Exchange> exchanges = new List<Exchange>();
+
+            using (StreamReader streamReader = File.OpenText(path))
+            {
+                streamReader.ReadLine();
+
+                while (!streamReader.EndOfStream)
+                {
+                    char[] delimiterChars = { ';'};
+                    string[] fields = streamReader.ReadLine().Split(delimiterChars);
+
+                    /*if(fields[0] == "DATA")
+                    {
+                        streamReader.ReadLine();
+                    }
+                    if(!(fields[0] == "DATA"))*/
+                    
+                    string data = fields[0];
+                    string cpf = fields[1];
+                    string name = fields[2];
+                    string strGrossValue = fields[3].Trim().Replace('$',' ');
+                    //string strGrossValue = " $1.556.344,15 ".Trim().Replace('$',' ');
+                    double grossValue = double.Parse(strGrossValue);
+                    exchanges.Add(new Exchange(cpf, name, grossValue));
+                    
+                }
+            }
+
+            return exchanges;
+
+            
         }
 
     }

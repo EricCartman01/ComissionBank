@@ -7,6 +7,7 @@ using ComissionBank.Services;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
 using System.Security.Cryptography;
+using PagedList;
 
 namespace ComissionBank.Controllers
 {

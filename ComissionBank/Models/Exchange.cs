@@ -10,12 +10,14 @@ namespace ComissionBank.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public string  Cpf { get; set; }
+        public string Name { get; set; }
         public Advisor Advisor { get; set; }
-        //public int AdvisorId { get; set; }
-        public string FirstName { get; set; }
+        public int AdvisorId { get; set; }
 
         //public string House { get; set; }
-        //public Client Client { get; set; }
+        public Client Client { get; set; }
+        public int ClientId { get; set; }
         public Order Order { get; set; }
         public Currency Currency { get; set; }
         public double GrossValue { get; set; }
@@ -26,6 +28,7 @@ namespace ComissionBank.Models
         public Double Comission { get; set; }
         public double NetValue { get; set; }
         //public ICollection<Advisor> Advisors { get; set; } = new List<Advisor>();
+        public string GrossValueApagar { get; set; }
 
         public Exchange()
         {
@@ -47,5 +50,17 @@ namespace ComissionBank.Models
             NetValue = netValue;
         }
 
+        public Exchange(DateTime date)
+        {
+            Date = date;
+
+        }
+
+        public Exchange(string cpf, string name, double grossValue)
+        {
+            Cpf = cpf;
+            Name = name;
+            GrossValue = grossValue;
+        }
     }
 }
