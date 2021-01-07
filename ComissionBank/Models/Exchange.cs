@@ -90,11 +90,19 @@ namespace ComissionBank.Models
 
         }
 
-        public Exchange(string cpf, string name, double grossValue)
+        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string house, string order, string currency, double grossValue, double value, double cotation, double spread) 
         {
+            Date = date;
             Cpf = cpf;
             Name = name;
+            AdvisorInitials = advisorInitials;
+            House = house;
+            Order = order;
+            Currency = currency;
             GrossValue = grossValue;
+            Value = value;
+            Cotation = cotation;
+            Spread = spread;
         }
     }
 }
