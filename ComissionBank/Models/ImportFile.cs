@@ -23,7 +23,7 @@ namespace ComissionBank.Models
                     string broker = fields[0];
                     string clientCode = fields[1];
                     string clientName = fields[2];
-                    pans.Add(new Pan(broker, clientCode, clientName));
+                    //pans.Add(new Pan(broker, clientCode, clientName));
                 }
             }
 

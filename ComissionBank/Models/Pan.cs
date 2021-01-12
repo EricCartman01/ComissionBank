@@ -7,14 +7,18 @@ namespace ComissionBank.Models
 {
     public class Pan
     {
-        public string Broker { get; set; }
+        public int Id { get; set; }
+        public DateTime Record { get; set; } = DateTime.Now;
         public DateTime Date { get; set; }
         public string ClientCode { get; set; }
         public string ClientName { get; set; }
-        public string AdvisorName { get; set; }
+        public Advisor Advisor { get; set; }
+        public int AdvisorId { get; set; }
+        public string AdvisorInitials { get; set; }
         public double PanValue { get; set; }
         public double PanLiquidValue { get; set; }
-        public double Percentual { get; set; }
+        public double NetAdvisorValue { get; set; }
+        public double BankValue { get; set; }
         public double AdvisorValue { get; set; }
 
         public Pan()
@@ -22,11 +26,17 @@ namespace ComissionBank.Models
 
         }
 
-        public Pan(string broker, string clientCode, string clientName)
+        public Pan(DateTime date, string clientCode, string clientName, string advisorInitials, double panvalue, double panLiquidValue, double netAdvisorValue, double bankValue)
         {
-            Broker = broker;
+            Date = date;
             ClientCode = clientCode;
             ClientName = clientName;
+            AdvisorInitials = advisorInitials;
+            PanValue = panvalue;
+            PanLiquidValue = panLiquidValue;
+            NetAdvisorValue = netAdvisorValue;
+            BankValue = bankValue;
+
         }
     }
 }

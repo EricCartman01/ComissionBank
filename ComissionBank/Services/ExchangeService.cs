@@ -101,9 +101,9 @@ namespace ComissionBank.Services
                         break;
                     }
 
-                    DateTime data = DateTime.Parse(fields[0],CultureInfo.CreateSpecificCulture("pt-BR"),DateTimeStyles.None);
-                    string cpf = fields[1];
-                    string name = fields[2];
+                    DateTime data   = DateTime.Parse(fields[0],CultureInfo.CreateSpecificCulture("pt-BR"),DateTimeStyles.None);
+                    string cpf      = fields[1];
+                    string name     = fields[2];
                     string advisorInitials = fields[3].Trim();
 
                     if (!_context.Client.Any(x => x.Name == name))
@@ -139,12 +139,37 @@ namespace ComissionBank.Services
                     string strSpread = fields[11].Trim().Replace(" ", " ");
                     double spread = double.Parse(strSpread);
                     
-                    string strComission = fields[12].Trim().Replace("R$", " ");
-                    //double comission = double.Parse(strComission);
+                    string strComission = fields[12].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double resultComission;
+                    var isValidComission = double.TryParse(strComission, out resultComission);
+                    double comission = isValidComission ? resultComission : 0;
+
+                    string strLiquidValue = fields[13].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double liquidValue = double.Parse(strLiquidValue);
+
+                    string strNetAdvisorValue = fields[14].Trim().Replace("%","");
+                    double netAdvisorValue = double.Parse(strNetAdvisorValue);
+
+                    string strBankValue = fields[15].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double bankValue = double.Parse(strBankValue, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    string strOperatorValue = fields[16].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double operatorValue = double.Parse(strOperatorValue);
+
+                    string strAdvisorValue = fields[17].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double advisorValue = double.Parse(strAdvisorValue);
+
+                    int month = int.Parse(fields[18].Trim());
+                    int year = int.Parse(fields[19].Trim());
                     
-                    exchanges.Add(new Exchange(data, strComission, name, advisorInitials,house,order,currency, grossValue, value, cotation, spread));
                     
+                    //exchanges.Add(new Exchange(data, cpf, name, advisorInitials,house,order,currency, grossValue, value, cotation, spread));
+
+                    exchanges.Add(new Exchange(data, cpf, name, advisorInitials, house, order, currency, grossValue, value, cotation, comissionType, spread, comission, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month,year));
+
+                    break;
                 }
+                
             }
 
             return exchanges;

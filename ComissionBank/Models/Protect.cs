@@ -8,6 +8,7 @@ namespace ComissionBank.Models
     public class Protect
     {
         public int Id { get; set; }
+        public DateTime Record { get; set; } = DateTime.Now;
         public DateTime Date { get; set; }
         public Client MyProperty { get; set; }
         public int House { get; set; }

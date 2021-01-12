@@ -15,7 +15,6 @@
     <thead>
         <tr class="success">
             <th>@Html.DisplayNameFor(model => model.Date)</th>
-            <th>@Html.DisplayNameFor(model => model.Cpf)</th>
             <th>@Html.DisplayNameFor(model => model.Name)</th>
             <th>@Html.DisplayNameFor(model => model.AdvisorInitials)</th>
             <th>@Html.DisplayNameFor(model => model.Advisor)</th>
@@ -26,7 +25,12 @@
             <th>@Html.DisplayNameFor(model => model.Value)</th>
             <th>@Html.DisplayNameFor(model => model.Cotation)</th>
             <th>@Html.DisplayNameFor(model => model.Spread)</th>
-
+            <th>@Html.DisplayNameFor(model => model.Comission)</th>
+            <th>@Html.DisplayNameFor(model => model.LiquidValue)</th>
+            <th>@Html.DisplayNameFor(model => model.NetAdvisorValue)</th>
+            <th>@Html.DisplayNameFor(model => model.BankValue)</th>
+            <th>@Html.DisplayNameFor(model => model.OperatorValue)</th>
+            <th>@Html.DisplayNameFor(model => model.AdvisorValue)</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +38,6 @@
         {
         <tr>
             <td>@Html.DisplayFor(x => item.Date)</td>
-            <td>@Html.DisplayFor(x => item.Cpf)</td>
             <td>@Html.DisplayFor(x => item.Name)</td>
             <td>@Html.DisplayFor(x => item.AdvisorInitials)</td>
             <td>@Html.DisplayFor(x => item.Advisor)</td>
@@ -45,6 +48,12 @@
             <td>@Html.DisplayFor(x => item.Value) </td>
             <td>@Html.DisplayFor(x => item.Cotation) </td>
             <td>@Html.DisplayFor(x => item.Spread) </td>
+            <td>@Html.DisplayFor(x => item.Comission) </td>
+            <td>@Html.DisplayFor(x => item.LiquidValue)</td>
+            <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
+            <td>@Html.DisplayFor(x => item.BankValue)</td>
+            <td>@Html.DisplayFor(x => item.OperatorValue)</td>
+            <td>@Html.DisplayFor(x => item.AdvisorValue) </td>
 
         </tr>
         }

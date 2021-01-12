@@ -9,7 +9,7 @@ namespace ComissionBank.Models
     public class Exchange
     {
         public int Id { get; set; }
-        public DateTime Record { get; set; }
+        public DateTime Record { get; set; } = DateTime.Now;
         public DateTime Date { get; set; }
         public Client Client { get; set; }
         public int ClientId { get; set; }
@@ -30,10 +30,12 @@ namespace ComissionBank.Models
         public double Spread { get; set; }
         public Double Comission { get; set; }
         public double LiquidValue { get; set; }
-        public double NetValue { get; set; }
+        public double NetAdvisorValue { get; set; }
+        public double BankValue { get; set; }
+        public double OperatorValue { get; set; }
         public double AdvisorValue { get; set; }
-        public string Month { get; set; }
-        public string Year { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
 
         //public ICollection<Advisor> Advisors { get; set; } = new List<Advisor>();
 
@@ -41,7 +43,7 @@ namespace ComissionBank.Models
         {
         }
 
-        public Exchange(int id, DateTime date, Advisor advisor, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double netValue)
+        public Exchange(int id, DateTime date, Advisor advisor, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double netAdvisorValue)
         {
             Id = id;
             Date = date;
@@ -54,10 +56,10 @@ namespace ComissionBank.Models
             ComissionType = comissionType;
             Spread = spread;
             Comission = comission;
-            NetValue = netValue;
+            NetAdvisorValue = netAdvisorValue;
         }
 
-        public Exchange(int id, DateTime date, Client client, int clientId, string cpf, string name, Advisor advisor, int advisorId, string house, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netValue, double advisorValue, string month, string year)
+        public Exchange(int id, DateTime date, Client client, int clientId, string cpf, string name, Advisor advisor, int advisorId, string house, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double advisorValue, int month, int year)
         {
             Id = id;
             Record = DateTime.Now;
@@ -78,7 +80,7 @@ namespace ComissionBank.Models
             Spread = spread;
             Comission = comission;
             LiquidValue = liquidValue;
-            NetValue = netValue;
+            NetAdvisorValue = netAdvisorValue;
             AdvisorValue = advisorValue;
             Month = month;
             Year = year;
@@ -103,6 +105,29 @@ namespace ComissionBank.Models
             Value = value;
             Cotation = cotation;
             Spread = spread;
+        }
+
+        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string house, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double bankValue, double operatorValue, double advisorValue, int month, int year) : this(date)
+        {
+            Cpf = cpf;
+            Name = name;
+            AdvisorInitials = advisorInitials;
+            House = house;
+            Order = order;
+            Currency = currency;
+            GrossValue = grossValue;
+            Value = value;
+            Cotation = cotation;
+            ComissionType = comissionType;
+            Spread = spread;
+            Comission = comission;
+            LiquidValue = liquidValue;
+            NetAdvisorValue = netAdvisorValue;
+            BankValue = bankValue;
+            OperatorValue = operatorValue;
+            AdvisorValue = advisorValue;
+            Month = month;
+            Year = year;
         }
     }
 }
