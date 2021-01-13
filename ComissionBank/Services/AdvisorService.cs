@@ -27,7 +27,6 @@ namespace ComissionBank.Services
 
         }
 
-
         public void Delete(int id)
         {
             var obj = _context.Advisor.Find(id);
@@ -76,7 +75,6 @@ namespace ComissionBank.Services
         public int GetIdByInitials(string initials)
         {
             return _context.Advisor.Where(x => x.Initials == initials).Select(x => x.Id).FirstOrDefault();
-
         }
 
         public List<Advisor> Import()

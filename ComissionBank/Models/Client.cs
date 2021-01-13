@@ -8,6 +8,7 @@ namespace ComissionBank.Models
     public class Client
     {
         public int Id { get; set; }
+        public DateTime Record { get; set; } = DateTime.Now;
         public string Name { get; set; }
         public string Email { get; set; }
         public string Cpf { get; set; }
@@ -46,6 +47,12 @@ namespace ComissionBank.Models
         {
             Name = name;
             Cpf = cpf;
+            AdvisorInitials = advisorInitials;
+        }
+
+        public Client(string name, string advisorInitials)
+        {
+            Name = name;
             AdvisorInitials = advisorInitials;
         }
     }

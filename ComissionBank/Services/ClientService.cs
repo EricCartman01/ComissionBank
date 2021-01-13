@@ -37,17 +37,37 @@ namespace ComissionBank.Services
             var _Cpf = _context.Client.Where(x => x.Cpf == comission.Client.Cpf).Select(x => x.Cpf).FirstOrDefault();
             return _Cpf;
         }*/
+        public int GetIdByAdvisorInitials(string advisorInitials)
+        {
+            return _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+        }
 
         public int GetIdByCpf(string cpf)
         {
-            int clientId = _context.Client.Where(x => x.Cpf == cpf).Select(x => x.Id).FirstOrDefault();
-            return clientId;
+            return _context.Client.Where(x => x.Cpf == cpf).Select(x => x.Id).FirstOrDefault();
         }
 
         public int GetIdByName(string name)
         {
-            int clientId = _context.Client.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
-            return clientId;
+            return _context.Client.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
+        }
+
+        public int GetIdClientByName(string name)
+        {
+            int idClient = _context.Client.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
+            if (idClient != 0)
+            {
+                return idClient;
+            }
+            return 0;
+        }
+        public bool IsClient(string name)
+        {
+            if(! _context.Client.Any(x => x.Name == name))
+            {
+                return false;
+            }
+            return true;
         }
         public void Insert(Client client)
         {

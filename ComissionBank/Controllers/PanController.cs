@@ -49,5 +49,22 @@ namespace ComissionBank.Controllers
             var pans = _panService.Import();
             return View(pans);
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _panService.FindById(id.Value);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            
+            return View(obj);
+
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace ComissionBank.Controllers
 
         }
 
-        /*public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if(id == null)
             {
@@ -81,12 +81,8 @@ namespace ComissionBank.Controllers
             {
                 return NotFound();
             }
-
-            List<Advisor> advisors = _advisorService.FindAll();
-            ExchangeFormViewModel viewModel = new ExchangeFormViewModel { Exchange = obj, Advisors = advisors };
             return View(obj);
-
-        }*/
+        }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
