@@ -37,5 +37,10 @@ namespace ComissionBank.Services
         {
             return _context.Product.FirstOrDefault(x => x.Id == id);
         }
+
+        public int GetIdByName(string name)
+        {
+            return _context.Product.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
+        }
     }
 }

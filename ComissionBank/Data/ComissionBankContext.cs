@@ -23,5 +23,6 @@ namespace ComissionBank.Data
         public DbSet<Pan> Pan { get; set; }
         public DbSet<Protect> Protect { get; set; }
         public DbSet<House> House { get; set; }
+        public DbSet<Xp> Xp { get; set; }
     }
 }

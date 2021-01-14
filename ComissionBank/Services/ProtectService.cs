@@ -15,6 +15,8 @@ namespace ComissionBank.Services
         private readonly ComissionBankContext _context;
         private readonly ClientService _clientService;
         private readonly HouseService _houseService;
+        private readonly AdvisorService _advisorService;
+        private readonly ProductService _productService;
 
         public ProtectService(ComissionBankContext comissionBankContext)
         {
@@ -79,10 +81,14 @@ namespace ComissionBank.Services
                         break;
                     }
 
+                    string broker           = fields[0].Trim();
                     DateTime data           = DateTime.Parse(fields[0], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
-                    string clientName       = fields[1].Trim();
-                    string house            = fields[2].Trim();
-                    string advisorInitials  = fields[3].Trim();
+                    string clientName       = fields[2].Trim();
+                    
+                    string house            = fields[3].Trim();
+                    int houseId             = _houseService.GetIdByName(house);
+                    
+                    string advisorInitials  = fields[4].Trim();
                     
                     int clientId            = _clientService.GetIdByAdvisorInitials(advisorInitials);
                     if (clientId == 0)
@@ -92,11 +98,25 @@ namespace ComissionBank.Services
                         clientId = _clientService.GetIdByAdvisorInitials(advisorInitials);  
                     }
 
-                    int houseId = _houseService.GetIdByName(house);
+                    int advisorId   = _advisorService.GetIdByInitials(advisorInitials);
 
+                    string product  = fields[7].Trim();
+                    int productId   = _productService.GetIdByName(product);
 
+                    string strValue = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double value    = double.Parse(strValue, CultureInfo.CreateSpecificCulture("pt-BR"));
 
+                    string strLiquidValue   = fields[9].Trim().Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double liquidValue      = double.Parse(strLiquidValue, CultureInfo.CreateSpecificCulture("pt-BR"));
 
+                    string strNetValue  = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double netValue     = double.Parse(strNetValue, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    string strAvisorValue   = fields[11].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
+                    double advisorValue     = double.Parse(strAvisorValue, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    int month   = int.Parse(fields[12].Trim());
+                    int year    = int.Parse(fields[13].Trim());
                 }
             }
 
