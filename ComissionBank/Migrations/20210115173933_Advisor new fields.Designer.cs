@@ -3,14 +3,16 @@ using System;
 using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComissionBank.Migrations
 {
     [DbContext(typeof(ComissionBankContext))]
-    partial class ComissionBankContextModelSnapshot : ModelSnapshot
+    [Migration("20210115173933_Advisor new fields")]
+    partial class Advisornewfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -80,6 +80,10 @@ namespace ComissionBank.Services
                         break;
                     }
 
+                    // Tratamento cliente
+
+                    // tratamento Assessor
+
                     string[] removeChars = { "R$", "-", " " };
                     DateTime date = DateTime.Parse(fields[1], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
                     string clientCode = fields[2].Trim();
