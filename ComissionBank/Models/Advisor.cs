@@ -19,13 +19,15 @@ namespace ComissionBank.Models
         public string Cpf { get; set; }
         public DateTime Birthday { get; set; }
         public string Telephone { get; set; }
-        public string XpCode { get; set; }
-        public Bank Bank { get; set; }
+        public string XpCode { get; set; } = "0";
+        public string Bank { get; set; }
         public string BankAgency { get; set; }
         public string BankAccount { get; set; }
         public DateTime Initial { get; set; }
         public bool Employee { get; set; }
-        public string Matrix { get; set; }
+        public string MatrixName { get; set; }
+        public Matrix Matrix { get; set; }
+        public int MatrixId { get; set; }
         public string Cfp { get; set; }
         public double NetCertification { get; set; }
         public double Net { get; set; }
@@ -37,7 +39,10 @@ namespace ComissionBank.Models
         public double ITAZ { get; set; }
         public double JURC { get; set; }
         public double PAN { get; set; }
-        public bool IsActive { get; set; }
+        public double XPTable { get; set; }
+        public bool IsHeadQuarter { get; set; }
+        public bool IsActive { get; set; } = true;
+        
         public ICollection<Comission> Comissions { get; set; } = new List<Comission>();
 
         public Advisor()
@@ -48,6 +53,11 @@ namespace ComissionBank.Models
         public Advisor(string name, string initials)
         {
             Name = name;
+            Initials = initials;
+        }
+
+        public Advisor(string initials)
+        {
             Initials = initials;
         }
 
@@ -67,11 +77,12 @@ namespace ComissionBank.Models
             Email = email;
         }
 
-        public Advisor(string name, string initials, string cpf)
+        public Advisor(string name, string initials, string email, double xpc)
         {
             Name = name;
             Initials = initials;
-            Cpf = cpf;
+            Email = email;
+            XPC = xpc;
         }
 
         public Advisor(string name,string initials, string xpCode, string email, bool employee, double netCertification,double net, double netBirthday, double netTotal, double xpc, double cmbc, double protc, double itaz, double jurc, double pan)
@@ -91,6 +102,19 @@ namespace ComissionBank.Models
             ITAZ = itaz;
             JURC = jurc;
             PAN = pan;
+        }
+
+        //Novo construtor novas planilhas Raquel
+        public Advisor(string name, string initials, string matrixName, string email, string password, double xpc, double cmbc, double protc, double itaz, double jurc, double pan, double xpTable, bool isHeadQuarter)
+        {
+            Name = name;
+            Initials = initials;
+            MatrixName = matrixName;
+            Email = email;
+            Password = password;
+            XPTable = xpTable;
+            IsHeadQuarter = isHeadQuarter;
+            
         }
 
     }

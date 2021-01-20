@@ -15,8 +15,6 @@ namespace ComissionBank.Services
     public class ExchangeService
     {
         private readonly ComissionBankContext _context;
-        private readonly AdvisorService _advisorService;
-        private readonly ClientService _clientService;
 
         public ExchangeService(ComissionBankContext comissionBankContext)
         {
@@ -102,26 +100,60 @@ namespace ComissionBank.Services
                     }
 
                     DateTime data   = DateTime.Parse(fields[0],CultureInfo.CreateSpecificCulture("pt-BR"),DateTimeStyles.None);
-                    string cpf      = fields[1];
-                    string name     = fields[2];
+                    string clientCpf = fields[1];
+                    string clientName = fields[2];
                     string advisorInitials = fields[3].Trim();
 
+                    int clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    if (clientId == 0)
+                    {
+                        Client client = new Client(clientName, advisorInitials);
+
+                        _context.Client.Add(client);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    }
+
+                    int advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    if (advisorId == 0)
+                    {
+                        Advisor advisor = new Advisor(advisorInitials);
+
+                        _context.Advisor.Add(advisor);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    }
+
+
+                    /*
                     if (!_context.Client.Any(x => x.Name == name))
                     {
                         Client newClient = new Client(name, cpf, advisorInitials);
-                        //_clientService.Insert(newClient);
                     }
 
-                    //int clientId = _clientService.GetIdByName(name);
 
                     if (! _context.Advisor.Any(x => x.Initials == advisorInitials)){ 
                         Advisor newAdvisor = new Advisor(name, advisorInitials, cpf);
-                        //_advisorService.Insert(newAdvisor);
                     }
+                    */
 
-                    //int advisorId = _advisorService.GetIdByInitials(advisorInitials);
+                    string houseName = fields[4];
+                    int houseId = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
 
-                    string house    = fields[4];
                     string order    = fields[5];
                     string currency = fields[6];
 
@@ -166,7 +198,7 @@ namespace ComissionBank.Services
                     
                     //exchanges.Add(new Exchange(data, cpf, name, advisorInitials,house,order,currency, grossValue, value, cotation, spread));
 
-                    exchanges.Add(new Exchange(data, cpf, name, advisorInitials, house, order, currency, grossValue, value, cotation, comissionType, spread, comission, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month,year));
+                    exchanges.Add(new Exchange(data, clientCpf, clientName, advisorInitials, houseName, houseId, order, currency, grossValue, value, cotation, comissionType, spread, comission, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month,year));
 
                     break;
                 }

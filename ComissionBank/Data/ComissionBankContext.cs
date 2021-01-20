@@ -24,5 +24,6 @@ namespace ComissionBank.Data
         public DbSet<Protect> Protect { get; set; }
         public DbSet<House> House { get; set; }
         public DbSet<Xp> Xp { get; set; }
+        public DbSet<Matrix> Matrix { get; set; }
     }
 }

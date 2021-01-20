@@ -3,14 +3,16 @@ using System;
 using ComissionBank.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComissionBank.Migrations
 {
     [DbContext(typeof(ComissionBankContext))]
-    partial class ComissionBankContextModelSnapshot : ModelSnapshot
+    [Migration("20210118165940_ClientID All Models")]
+    partial class ClientIDAllModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace ComissionBank.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Bank");
+                    b.Property<int>("Bank");
 
                     b.Property<string>("BankAccount");
 
@@ -48,13 +50,9 @@ namespace ComissionBank.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<bool>("IsHeadQuarter");
-
                     b.Property<double>("JURC");
 
-                    b.Property<int>("MatrixId");
-
-                    b.Property<string>("MatrixName");
+                    b.Property<string>("Matrix");
 
                     b.Property<string>("Name");
 
@@ -78,13 +76,9 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("XPC");
 
-                    b.Property<double>("XPTable");
-
                     b.Property<string>("XpCode");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MatrixId");
 
                     b.ToTable("Advisor");
                 });
@@ -212,9 +206,7 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("GrossValue");
 
-                    b.Property<int>("HouseId");
-
-                    b.Property<string>("HouseName");
+                    b.Property<string>("House");
 
                     b.Property<double>("LiquidValue");
 
@@ -241,8 +233,6 @@ namespace ComissionBank.Migrations
                     b.HasIndex("AdvisorId");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("HouseId");
 
                     b.ToTable("Exchange");
                 });
@@ -429,14 +419,6 @@ namespace ComissionBank.Migrations
                     b.ToTable("Xp");
                 });
 
-            modelBuilder.Entity("ComissionBank.Models.Advisor", b =>
-                {
-                    b.HasOne("ComissionBank.Models.Matrix", "Matrix")
-                        .WithMany()
-                        .HasForeignKey("MatrixId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ComissionBank.Models.Comission", b =>
                 {
                     b.HasOne("ComissionBank.Models.Advisor", "Advisor")
@@ -473,11 +455,6 @@ namespace ComissionBank.Migrations
                     b.HasOne("ComissionBank.Models.Client", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ComissionBank.Models.House", "House")
-                        .WithMany()
-                        .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

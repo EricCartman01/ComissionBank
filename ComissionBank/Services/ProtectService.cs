@@ -13,10 +13,6 @@ namespace ComissionBank.Services
     public class ProtectService
     {
         private readonly ComissionBankContext _context;
-        private readonly ClientService _clientService;
-        private readonly HouseService _houseService;
-        private readonly AdvisorService _advisorService;
-        private readonly ProductService _productService;
 
         public ProtectService(ComissionBankContext comissionBankContext)
         {
@@ -84,24 +80,46 @@ namespace ComissionBank.Services
                     string broker           = fields[0].Trim();
                     DateTime data           = DateTime.Parse(fields[0], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
                     string clientName       = fields[2].Trim();
-                    
-                    string house            = fields[3].Trim();
-                    int houseId             = _houseService.GetIdByName(house);
-                    
+                    string houseName        = fields[3].Trim();
+                    int houseId             = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
                     string advisorInitials  = fields[4].Trim();
                     
-                    int clientId            = _clientService.GetIdByAdvisorInitials(advisorInitials);
+                    int clientId            = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     if (clientId == 0)
                     {
                         Client client = new Client(clientName, advisorInitials);
-                        _clientService.Insert(client);
-                        clientId = _clientService.GetIdByAdvisorInitials(advisorInitials);  
+
+                        _context.Client.Add(client);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
-                    int advisorId   = _advisorService.GetIdByInitials(advisorInitials);
+                    int advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    if (advisorId == 0)
+                    {
+                        Advisor advisor = new Advisor(advisorInitials);
 
-                    string product  = fields[7].Trim();
-                    int productId   = _productService.GetIdByName(product);
+                        _context.Advisor.Add(advisor);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    }
+
+                    string productName  = fields[7].Trim();
+                    int productId   = _context.Product.Where(x => x.Name == productName).Select(x => x.Id).FirstOrDefault();
 
                     string strValue = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
                     double value    = double.Parse(strValue, CultureInfo.CreateSpecificCulture("pt-BR"));

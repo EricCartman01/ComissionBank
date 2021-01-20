@@ -9,6 +9,7 @@ using ComissionBank.Services.Exceptions;
 using System.Security.Cryptography;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace ComissionBank.Services
 {
@@ -115,7 +116,7 @@ namespace ComissionBank.Services
 
         public List<Advisor> Import()
         {
-            string path = @"c:\temp\ASSESSORES.csv";
+            string path = @"c:\temp\ASSESSORES_leo_jan_2021.csv";
             List<Advisor> advisorsList = new List<Advisor>();
 
             using (StreamReader streamReader = File.OpenText(path))
@@ -132,51 +133,81 @@ namespace ComissionBank.Services
                         break;
                     }
 
-                    string name     = fields[0];
+                    string name = fields[0];
                     string initials = fields[1].Trim();
-                    string xpCode   = fields[2].Trim();
-                    string email    = fields[3].Trim();
-                    bool employee   = bool.Parse(fields[4].Trim().Replace("X", "true"));
+                    string matrixName = fields[2].Trim();
+                    string email = fields[3];
 
-                    string strNetCertification  = fields[5].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double netCertification     = double.Parse(strNetCertification, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //string strXpc = fields[4].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%"," ");
+                    //string strXpc2 = Regex.Replace(strXpc, @"[^\d]", "");
+                    //double xpc = double.Parse("100", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strNet = fields[6].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!","");
-                    double net = double.Parse(strNet, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //var apenasDigitos = new Regex(@"[^\d]");
+                    //return apenasDigitos.Replace(str, "");
 
-                    string strNetBirthday = fields[7].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double netBirthday = double.Parse(strNetBirthday, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    var numbers = new Regex(@"[^\d]");
+                    double resultDoubleConversion;
 
-                    string strNetTotal = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double netTotal = double.Parse(strNetTotal, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strXpc = numbers.Replace(fields[4], "");
+                    var isValidComission = double.TryParse(strXpc, out resultDoubleConversion);
+                    double xpc = (isValidComission ? resultDoubleConversion : 0)/100;
 
-                    string strXpc = fields[9].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double xpc = double.Parse(strXpc, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strCmbc = fields[5].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    double cmbc = double.Parse("10", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strCmbc = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double cmbc = double.Parse(strCmbc, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strProtc = fields[6].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    double protc = double.Parse("11", CultureInfo.CreateSpecificCulture("pt-BR"));
+                     
+                    string strItaz = fields[7].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    double itaz = double.Parse("12", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strProtc = fields[11].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double protc = double.Parse(strProtc, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strJurc = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    double jurc = double.Parse("13", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strItaz = fields[12].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double itaz = double.Parse(strItaz, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strPan = fields[9].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    double pan = double.Parse("14", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strJurc = fields[13].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double jurc = double.Parse(strJurc, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //novos valores nova planilha Raquel
+                    string strXpTable = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double xpTable = double.Parse(strXpTable, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    double xpTable = 10.0;
 
-                    string strPan = fields[14].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
-                    double pan = double.Parse(strPan, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string strIsHeadQuarter = fields[11].Trim();
+                    bool isHeadQuarter = false;
 
-                    advisorsList.Add(new Advisor(name, initials));
+                    //if (strIsHeadQuarter == "F")
+                    //{
+                      //  isHeadQuarter = true;
+                    //}
+                    //bool isHeadQuarter = bool.Parse(strIsHeadQuarter);
+
+                    //Mudancas Nova Planilha Assessores Raquel
+                    //bool employee = bool.Parse(fields[4].Trim().Replace("X", "true"));
+                    //string strNetCertification  = fields[5].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
+                    //double netCertification     = double.Parse(strNetCertification, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    //string strNet = fields[6].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!","");
+                    //double net = double.Parse(strNet, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    //string strNetBirthday = fields[7].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
+                    //double netBirthday = double.Parse(strNetBirthday, CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    //string strNetTotal = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
+                    //double netTotal = double.Parse(strNetTotal, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    string cpf = "0";
+                    string xpCode = "0";
+                    string password = "mudar123";
+
+                    advisorsList.Add(new Advisor(name, initials, email, xpc));
 
                     if (!_context.Advisor.Any(x => x.Initials == initials))
                     {
                         //Advisor advisor = new Advisor(name, initials);
-                        Advisor advisor1 = new Advisor(name, initials, xpCode, email, employee, netCertification, net, netBirthday, netTotal, xpc, cmbc, protc, itaz, jurc, pan);
-                        Insert(advisor1);
+                        //Advisor advisor1 = new Advisor(name, initials, xpCode, email, employee, netCertification, net, netBirthday, netTotal, xpc, cmbc, protc, itaz, jurc, pan);
+                        
+                        //Advisor advisor2 = new Advisor(name, initials, matrixName, email, password, xpc, cmbc, protc, itaz, jurc, pan, xpTable, isHeadQuarter);
+                        //Insert(advisor2);
                     }
-
                 }
             }
 

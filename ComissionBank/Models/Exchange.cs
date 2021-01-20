@@ -20,7 +20,9 @@ namespace ComissionBank.Models
         public Advisor Advisor { get; set; }
         public int AdvisorId { get; set; }
 
-        public string House { get; set; }
+        public string HouseName { get; set; }
+        public House House { get; set; }
+        public int HouseId { get; set; }
         public string Order { get; set; }
         public string Currency { get; set; }
         public double GrossValue { get; set; }
@@ -59,7 +61,7 @@ namespace ComissionBank.Models
             NetAdvisorValue = netAdvisorValue;
         }
 
-        public Exchange(int id, DateTime date, Client client, int clientId, string cpf, string name, Advisor advisor, int advisorId, string house, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double advisorValue, int month, int year)
+        public Exchange(int id, DateTime date, Client client, int clientId, string cpf, string name, Advisor advisor, int advisorId, string houseName, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double advisorValue, int month, int year)
         {
             Id = id;
             Record = DateTime.Now;
@@ -70,7 +72,7 @@ namespace ComissionBank.Models
             Name = name;
             Advisor = advisor;
             AdvisorId = advisorId;
-            House = house;
+            HouseName = houseName;
             Order = order;
             Currency = currency;
             GrossValue = grossValue;
@@ -92,13 +94,13 @@ namespace ComissionBank.Models
 
         }
 
-        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string house, string order, string currency, double grossValue, double value, double cotation, double spread) 
+        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string houseName, string order, string currency, double grossValue, double value, double cotation, double spread) 
         {
             Date = date;
             Cpf = cpf;
             Name = name;
             AdvisorInitials = advisorInitials;
-            House = house;
+            HouseName = houseName;
             Order = order;
             Currency = currency;
             GrossValue = grossValue;
@@ -107,12 +109,13 @@ namespace ComissionBank.Models
             Spread = spread;
         }
 
-        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string house, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double bankValue, double operatorValue, double advisorValue, int month, int year) : this(date)
+        public Exchange(DateTime date, string cpf, string name, string advisorInitials, string houseName, int houseId, string order, string currency, double grossValue, double value, double cotation, string comissionType, double spread, double comission, double liquidValue, double netAdvisorValue, double bankValue, double operatorValue, double advisorValue, int month, int year) : this(date)
         {
             Cpf = cpf;
             Name = name;
             AdvisorInitials = advisorInitials;
-            House = house;
+            HouseName = houseName;
+            HouseId = houseId;
             Order = order;
             Currency = currency;
             GrossValue = grossValue;

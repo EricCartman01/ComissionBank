@@ -12,6 +12,8 @@ namespace ComissionBank.Models
         public DateTime Date { get; set; }
         public string ClientCode { get; set; }
         public string ClientName { get; set; }
+        public Client Client { get; set; }
+        public int ClientId { get; set; }
         public Advisor Advisor { get; set; }
         public int AdvisorId { get; set; }
         public string AdvisorInitials { get; set; }

@@ -80,15 +80,54 @@ namespace ComissionBank.Services
                         break;
                     }
 
-                    // Tratamento cliente
-
-                    // tratamento Assessor
-
                     string[] removeChars = { "R$", "-", " " };
                     DateTime date = DateTime.Parse(fields[1], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
+
+                    //----------- Tratamento cliente -----------------------------
                     string clientCode = fields[2].Trim();
                     string clientName = fields[3];
                     string advisorInitials = fields[4].Trim();
+
+                    //int clientId = _clientService.GetIdByName(clientName);
+                    int clientId = _context.Client.Where(x => x.Name == clientName).Select(x => x.Id).FirstOrDefault();
+                    if(clientId == 0)
+                    {
+                        Client client = new Client(clientName, advisorInitials);
+                        //_clientService.Insert(client);
+
+                        _context.Client.Add(client);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch(Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        //clientId = _clientService.GetIdByAdvisorInitials(advisorInitials);
+                        clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    }
+
+                    //----------- Tratamento Advisor -----------------------------
+                    //int advisorId = _advisorService.GetIdByInitials(advisorInitials);
+                    int advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    if(advisorId == 0)
+                    {
+                        Advisor advisor = new Advisor(advisorInitials);
+                        //_advisorService.Insert(advisor);
+
+                        _context.Advisor.Add(advisor);
+                        try
+                        {
+                            _context.SaveChanges();
+                        }
+                        catch(Exception e)
+                        {
+                            throw new Exception(e.Message);
+                        }
+                        //advisorId = _advisorService.GetIdByInitials(advisorInitials);
+                        advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    }
 
                     string strPanValue = fields[5].Trim().Replace("R$", " ");
                     string strPanValue1 = strPanValue.Trim().Replace("-", " ");

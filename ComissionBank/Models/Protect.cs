@@ -11,6 +11,8 @@ namespace ComissionBank.Models
         public DateTime Record { get; set; } = DateTime.Now;
         public DateTime Date { get; set; }
         public string ClientName { get; set; }
+        public Client Client { get; set; }
+        public int ClientId { get; set; }
         public House House { get; set; }
         public int HouseId { get; set; }
         public Advisor Advisor { get; set; }
