@@ -76,23 +76,12 @@ namespace ComissionBank.Services
                     char[] delimiterChars = { ';'};
                     string[] fields = streamReader.ReadLine().Split(delimiterChars);
 
-                    //------------ TESTES -----------------------------------
                     /*
                     string data1 = fields[0].Replace(" ",String.Empty);
                     string data2 = Regex.Replace(data1, @"\s", "");
                     string data3 = String.Concat(data2.Where(x => !Char.IsWhiteSpace(x)));
-                    string test4 = data3.Substring(0, 2) + data3.Substring(3, 2) + data3.Substring(6, 2);
-                    DateTime data5 = DateTime.Parse(teste4, CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    string merda = "09/09/09";
-                    int dia1 = int.Parse(merda.Substring(0, 2));
-                    int mes1 = int.Parse(merda.Substring(3, 2));
-                    int ano1 = int.Parse(merda.Substring(6, 2));
-                    DateTime dataCompleta = new DateTime(ano1, mes1, dia1);
-                    string data1 = Convert.ToString(fields[0], CultureInfo.InvariantCulture);
+                    int ano1 = int.Parse(data3.Substring(6, 2));
                     */
-
-                    //------------ FIM TESTES -----------------------------------
 
                     if (fields[0] == "")
                     {
@@ -138,19 +127,6 @@ namespace ComissionBank.Services
                         advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
-
-                    /*
-                    if (!_context.Client.Any(x => x.Name == name))
-                    {
-                        Client newClient = new Client(name, cpf, advisorInitials);
-                    }
-
-
-                    if (! _context.Advisor.Any(x => x.Initials == advisorInitials)){ 
-                        Advisor newAdvisor = new Advisor(name, advisorInitials, cpf);
-                    }
-                    */
-
                     string houseName = fields[4];
                     int houseId = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
 
@@ -194,9 +170,6 @@ namespace ComissionBank.Services
 
                     int month   = int.Parse(fields[18].Trim());
                     int year    = int.Parse(fields[19].Trim());
-                    
-                    
-                    //exchanges.Add(new Exchange(data, cpf, name, advisorInitials,house,order,currency, grossValue, value, cotation, spread));
 
                     exchanges.Add(new Exchange(data, clientCpf, clientName, advisorInitials, houseName, houseId, order, currency, grossValue, value, cotation, comissionType, spread, comission, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month,year));
 

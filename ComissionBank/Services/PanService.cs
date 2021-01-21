@@ -81,14 +81,13 @@ namespace ComissionBank.Services
                     }
 
                     string[] removeChars = { "R$", "-", " " };
-                    DateTime date = DateTime.Parse(fields[1], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
+                    
+                    DateTime datePan = DateTime.Parse(fields[1], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
 
-                    //----------- Tratamento cliente -----------------------------
                     string clientCode = fields[2].Trim();
                     string clientName = fields[3];
                     string advisorInitials = fields[4].Trim();
 
-                    //int clientId = _clientService.GetIdByName(clientName);
                     int clientId = _context.Client.Where(x => x.Name == clientName).Select(x => x.Id).FirstOrDefault();
                     if(clientId == 0)
                     {
@@ -104,12 +103,10 @@ namespace ComissionBank.Services
                         {
                             throw new Exception(e.Message);
                         }
-                        //clientId = _clientService.GetIdByAdvisorInitials(advisorInitials);
                         clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
                     //----------- Tratamento Advisor -----------------------------
-                    //int advisorId = _advisorService.GetIdByInitials(advisorInitials);
                     int advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     if(advisorId == 0)
                     {
@@ -125,14 +122,22 @@ namespace ComissionBank.Services
                         {
                             throw new Exception(e.Message);
                         }
-                        //advisorId = _advisorService.GetIdByInitials(advisorInitials);
                         advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
-                    string strPanValue = fields[5].Trim().Replace("R$", " ");
+                    double panValue = GetDouble(fields[5]);
+                    double panLiquidValue = GetDouble(fields[6]);
+                    double netAdvisorValue = GetDouble(fields[7]);
+                    double bankValue = GetDouble(fields[8]);
+
+                    Pan newPan = new Pan(datePan, clientCode, clientName, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
+                    pans.Add(newPan);
+                    //Insert(newPan);
+
+                    /*string strPanValue = fields[5].Trim().Replace("R$", " ");
                     string strPanValue1 = strPanValue.Trim().Replace("-", " ");
                     double panValue = double.Parse(strPanValue1,CultureInfo.CreateSpecificCulture("pt-BR"));
-
+                    
                     string strPanLiquidValue = fields[6].Trim().Replace("R$", " ");
                     string strPanLiquidValue1 = strPanLiquidValue.Trim().Replace("-", " ");
                     double panLiquidValue = double.Parse(strPanLiquidValue1,CultureInfo.CreateSpecificCulture("pt-BR"));
@@ -149,22 +154,25 @@ namespace ComissionBank.Services
                     double result;
                     var isvalid = double.TryParse(strBankValue3, out result);
                     double bankValue = isvalid ? result : 0;
-
-                    string strAdvisorValue = fields[9].Trim().Replace("R$", " ");
-                    string strAdvisorValue1 = strBankValue.Trim().Replace("-", " ");
-                    
-                    double number;
-                    bool isAdvisorValue = double.TryParse(strAdvisorValue1, out number);
-
-                    Pan newPan = new Pan(date, clientCode, clientName, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
-                    pans.Add(newPan);
-                    //Insert(newPan);
-
+                    */
                 }
             }
 
             return pans;
         }
-        
+
+        public static double GetDouble(string strDouble)
+        {
+            var numbers = new Regex(@"[^\d]");
+            double resultDoubleConversion;
+
+            string strResult = numbers.Replace(strDouble, "");
+            var isValidComission = double.TryParse(strResult, out resultDoubleConversion);
+
+            double doubleResult = (isValidComission ? resultDoubleConversion : 0) ;
+
+            return doubleResult;
+        }
+
     }
 }

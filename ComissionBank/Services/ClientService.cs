@@ -32,11 +32,6 @@ namespace ComissionBank.Services
             return _context.Client.ToList();
         }
 
-        /*public string GetIdByCpf(Comission comission)
-        {
-            var _Cpf = _context.Client.Where(x => x.Cpf == comission.Client.Cpf).Select(x => x.Cpf).FirstOrDefault();
-            return _Cpf;
-        }*/
         public int GetIdByAdvisorInitials(string advisorInitials)
         {
             return _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
@@ -105,20 +100,31 @@ namespace ComissionBank.Services
 
             using (StreamReader streamReader = File.OpenText(path))
             {
+                streamReader.ReadLine();
+                int cont = 1;
                 while (!streamReader.EndOfStream)
+                //while(cont < 100)
                 {
-                    string[] fields = streamReader.ReadLine().Split(',');
-                    string clientCode = fields[2];
-                    string name = fields[3];
-                    string advisorInitials = fields[4];
-                    
-                    clientList.Add(new Client(name, clientCode, advisorInitials));
+                    char[] delimiterChars = { ',' };
+                    string[] fields = streamReader.ReadLine().Split(delimiterChars);
 
-                    if(!_context.Client.Any(x => x.Name == name))
+                    if(string.IsNullOrEmpty(fields[0]) == true)
                     {
-                        Client client = new Client(name, clientCode, advisorInitials);
+                        break;
+                    }
+
+                    string clientCode = fields[2].Trim();
+                    string clientName = fields[3].ToUpper();
+                    string advisorInitials = fields[4].Trim().ToUpper();
+
+                    clientList.Add(new Client(clientName, clientCode, advisorInitials));
+
+                    if(!_context.Client.Any(x => x.Name == clientName))
+                    {
+                        Client client = new Client(clientName, clientCode, advisorInitials);
                         Insert(client);
                     }
+                    cont++;
                 }
             }
 

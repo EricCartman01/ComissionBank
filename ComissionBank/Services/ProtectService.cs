@@ -7,6 +7,7 @@ using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace ComissionBank.Services
 {
@@ -78,7 +79,7 @@ namespace ComissionBank.Services
                     }
 
                     string broker           = fields[0].Trim();
-                    DateTime data           = DateTime.Parse(fields[0], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
+                    DateTime protectDate    = DateTime.Parse(fields[0], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
                     string clientName       = fields[2].Trim();
                     string houseName        = fields[3].Trim();
                     int houseId             = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
@@ -121,24 +122,35 @@ namespace ComissionBank.Services
                     string productName  = fields[7].Trim();
                     int productId   = _context.Product.Where(x => x.Name == productName).Select(x => x.Id).FirstOrDefault();
 
-                    string strValue = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double value    = double.Parse(strValue, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    double value = GetDouble(fields[8]);
+                    double liquidValue = GetDouble(fields[9]);
+                    double netValue = GetDouble(fields[10]) / 100;
+                    double advisorValue = GetDouble(fields[11]);
 
-                    string strLiquidValue   = fields[9].Trim().Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double liquidValue      = double.Parse(strLiquidValue, CultureInfo.CreateSpecificCulture("pt-BR"));
+                    int month = int.Parse(fields[12].Trim());
+                    int year = int.Parse(fields[13].Trim());
 
-                    string strNetValue  = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double netValue     = double.Parse(strNetValue, CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    string strAvisorValue   = fields[11].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double advisorValue     = double.Parse(strAvisorValue, CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    int month   = int.Parse(fields[12].Trim());
-                    int year    = int.Parse(fields[13].Trim());
+                    protects.Add(new Protect(protectDate, clientName, clientId, houseId, advisorId, advisorInitials, productId, value, liquidValue, netValue, advisorValue, month, year));
                 }
             }
 
+            /*foreach (Protect item in protects)
+            {
+                Insert(item);
+            }*/
             return protects;
+        }
+        public static double GetDouble(string strDouble)
+        {
+            var numbers = new Regex(@"[^\d]");
+            double resultDoubleConversion;
+
+            string strResult = numbers.Replace(strDouble, "");
+            var isValidComission = double.TryParse(strResult, out resultDoubleConversion);
+
+            double doubleResult = (isValidComission ? resultDoubleConversion : 0);
+
+            return doubleResult;
         }
     }
 }

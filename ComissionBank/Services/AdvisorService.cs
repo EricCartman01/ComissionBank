@@ -137,7 +137,33 @@ namespace ComissionBank.Services
                     string initials = fields[1].Trim();
                     string matrixName = fields[2].Trim();
                     string email = fields[3];
+                    string password = GetRandomAlphanumericString(8);
+                    string cpf = "0";
+                    string xpCode = "0";
 
+                    double xpc = GetDoublePercent(fields[4]);
+                    double cmbc = GetDoublePercent(fields[5]);
+                    double protc = GetDoublePercent(fields[6]);
+                    double itaz = GetDoublePercent(fields[7]);
+                    double jurc = GetDoublePercent(fields[8]);
+                    double pan = GetDoublePercent(fields[9]);
+                    double xpTable = GetDoublePercent(fields[9]);
+
+                    bool isHeadQuarter = false;
+                    if (fields[11] == "F")
+                    {
+                        isHeadQuarter = true;
+                    }
+
+                    Advisor advisor = new Advisor(name, initials, matrixName, email, xpc, cmbc, protc, itaz, jurc, pan, xpTable, isHeadQuarter);
+                    advisorsList.Add(advisor);
+
+                    if (!_context.Advisor.Any(x => x.Initials == initials))
+                    {
+                        Insert(advisor);
+                    }
+
+                    // ******** novos valores NOVA planilha Raquel ************
                     //string strXpc = fields[4].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%"," ");
                     //string strXpc2 = Regex.Replace(strXpc, @"[^\d]", "");
                     //double xpc = double.Parse("100", CultureInfo.CreateSpecificCulture("pt-BR"));
@@ -145,40 +171,31 @@ namespace ComissionBank.Services
                     //var apenasDigitos = new Regex(@"[^\d]");
                     //return apenasDigitos.Replace(str, "");
 
-                    var numbers = new Regex(@"[^\d]");
-                    double resultDoubleConversion;
+                    //var numbers = new Regex(@"[^\d]");
+                    //double resultDoubleConversion;
 
-                    string strXpc = numbers.Replace(fields[4], "");
-                    var isValidComission = double.TryParse(strXpc, out resultDoubleConversion);
-                    double xpc = (isValidComission ? resultDoubleConversion : 0)/100;
+                    //string strXpc = numbers.Replace(fields[4], "");
+                    //var isValidComission = double.TryParse(strXpc, out resultDoubleConversion);
+                    //double xpc = (isValidComission ? resultDoubleConversion : 0)/100;
 
-                    string strCmbc = fields[5].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
-                    double cmbc = double.Parse("10", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //string strCmbc = fields[5].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double cmbc = double.Parse("10", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strProtc = fields[6].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
-                    double protc = double.Parse("11", CultureInfo.CreateSpecificCulture("pt-BR"));
-                     
-                    string strItaz = fields[7].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
-                    double itaz = double.Parse("12", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //string strProtc = fields[6].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double protc = double.Parse("11", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strJurc = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
-                    double jurc = double.Parse("13", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //string strItaz = fields[7].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double itaz = double.Parse("12", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    string strPan = fields[9].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
-                    double pan = double.Parse("14", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    //string strJurc = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double jurc = double.Parse("13", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                    //novos valores nova planilha Raquel
-                    string strXpTable = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //string strPan = fields[9].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
+                    //double pan = double.Parse("14", CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    //string strXpTable = fields[10].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", " ").Replace("%", " ");
                     //double xpTable = double.Parse(strXpTable, CultureInfo.CreateSpecificCulture("pt-BR"));
-                    double xpTable = 10.0;
 
-                    string strIsHeadQuarter = fields[11].Trim();
-                    bool isHeadQuarter = false;
-
-                    //if (strIsHeadQuarter == "F")
-                    //{
-                      //  isHeadQuarter = true;
-                    //}
                     //bool isHeadQuarter = bool.Parse(strIsHeadQuarter);
 
                     //Mudancas Nova Planilha Assessores Raquel
@@ -194,26 +211,12 @@ namespace ComissionBank.Services
 
                     //string strNetTotal = fields[8].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ").Replace("#REF!", "");
                     //double netTotal = double.Parse(strNetTotal, CultureInfo.CreateSpecificCulture("pt-BR"));
-                    string cpf = "0";
-                    string xpCode = "0";
-                    string password = "mudar123";
 
-                    advisorsList.Add(new Advisor(name, initials, email, xpc));
-
-                    if (!_context.Advisor.Any(x => x.Initials == initials))
-                    {
-                        //Advisor advisor = new Advisor(name, initials);
-                        //Advisor advisor1 = new Advisor(name, initials, xpCode, email, employee, netCertification, net, netBirthday, netTotal, xpc, cmbc, protc, itaz, jurc, pan);
-                        
-                        //Advisor advisor2 = new Advisor(name, initials, matrixName, email, password, xpc, cmbc, protc, itaz, jurc, pan, xpTable, isHeadQuarter);
-                        //Insert(advisor2);
-                    }
                 }
             }
 
             return advisorsList;
         }
-
 
         public static string GetRandomString(int length, IEnumerable<char> characterSet)
         {
@@ -241,6 +244,19 @@ namespace ComissionBank.Services
         {
             const string alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789";
             return GetRandomString(length, alphanumericCharacters);
+        }
+
+        public static double GetDoublePercent(string strDouble)
+        {
+            var numbers = new Regex(@"[^\d]");
+            double resultDoubleConversion;
+
+            string strResult = numbers.Replace(strDouble, "");
+            var isValidComission = double.TryParse(strResult, out resultDoubleConversion);
+            
+            double doubleResult = (isValidComission ? resultDoubleConversion : 0) / 100;
+            
+            return doubleResult;
         }
 
     }
