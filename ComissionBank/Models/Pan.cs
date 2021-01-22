@@ -40,5 +40,20 @@ namespace ComissionBank.Models
             BankValue = bankValue;
 
         }
+
+        public Pan(DateTime date, string clientCode, string clientName, int clientId, int advisorId, string advisorInitials, double panvalue, double panLiquidValue, double netAdvisorValue, double bankValue)
+        {
+            Date = date;
+            ClientCode = clientCode;
+            ClientName = clientName;
+            ClientId = clientId;
+            AdvisorId = advisorId;
+            AdvisorInitials = advisorInitials;
+            PanValue = panvalue;
+            PanLiquidValue = panLiquidValue;
+            NetAdvisorValue = netAdvisorValue;
+            BankValue = bankValue;
+
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace ComissionBank.Controllers
         }
         public IActionResult Index()
         {
-            List<Exchange> exchanges = new List<Exchange>();
+            /*List<Exchange> exchanges = new List<Exchange>();
 
             Advisor advisor1 = new Advisor(1, "Leonardo Gomes", "LG", "leonardo.gomes@bankrio.com.br");
             Advisor advisor2 = new Advisor(2, "Raquel Pena", "RP", "raquel.pena@bankrio.com.br");
@@ -34,9 +34,9 @@ namespace ComissionBank.Controllers
             exchanges.Add(new Exchange(1020, new DateTime(2020, 03, 30), advisor3, "Compra", "USD", 7000, 200, 1.70, "Nominal", 10.00, 1.00, 200.00));
             exchanges.Add(new Exchange(1020, new DateTime(2020, 04, 10), advisor4, "Compra", "USD", 9000, 100, 2.30, "Nominal", 30.00, 1.00, 200.00));
             return View(exchanges);
-
-            //var exchanges = _exchangeService.FindAll();
-            //return View(exchanges);
+            */
+            var exchanges = _exchangeService.FindAll();
+            return View(exchanges);
         }
 
         public IActionResult Create()

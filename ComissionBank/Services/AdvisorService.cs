@@ -138,8 +138,6 @@ namespace ComissionBank.Services
                     string matrixName = fields[2].Trim();
                     string email = fields[3];
                     string password = GetRandomAlphanumericString(8);
-                    string cpf = "0";
-                    string xpCode = "0";
 
                     double xpc = GetDoublePercent(fields[4]);
                     double cmbc = GetDoublePercent(fields[5]);
@@ -155,7 +153,7 @@ namespace ComissionBank.Services
                         isHeadQuarter = true;
                     }
 
-                    Advisor advisor = new Advisor(name, initials, matrixName, email, xpc, cmbc, protc, itaz, jurc, pan, xpTable, isHeadQuarter);
+                    Advisor advisor = new Advisor(name, initials, matrixName, email, password, xpc, cmbc, protc, itaz, jurc, pan, xpTable, isHeadQuarter);
                     advisorsList.Add(advisor);
 
                     if (!_context.Advisor.Any(x => x.Initials == initials))

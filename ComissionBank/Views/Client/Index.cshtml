@@ -15,12 +15,7 @@
         <tr class="success">
             <th>@Html.DisplayNameFor(model => model.Name)</th>
             <th>@Html.DisplayNameFor(model => model.Email)</th>
-            <th>@Html.DisplayNameFor(model => model.Cpf)</th>
-            <th>@Html.DisplayNameFor(model => model.Telefone)</th>
-            <th>@Html.DisplayNameFor(model => model.Birthday)</th>
-            <th>@Html.DisplayNameFor(model => model.Address)</th>
             <th>@Html.DisplayNameFor(model => model.ClientCode)</th>
-            <th>@Html.DisplayNameFor(model => model.Details)</th>
             <th>@Html.DisplayNameFor(model => model.AdvisorInitials)</th>
             <th>Ações</th>
         </tr>
@@ -31,12 +26,7 @@
         <tr>
             <td>@Html.DisplayFor(x => item.Name)</td>
             <td>@Html.DisplayFor(x => item.Email)</td>
-            <td>@Html.DisplayFor(x => item.Cpf) </td>
-            <td>@Html.DisplayFor(x => item.Telefone) </td>
-            <td>@Html.DisplayFor(x => item.Birthday) </td>
-            <td>@Html.DisplayFor(x => item.Address) </td>
             <td>@Html.DisplayFor(x => item.ClientCode) </td>
-            <td>@Html.DisplayFor(x => item.Details) </td>
             <td>@Html.DisplayFor(x => item.AdvisorInitials) </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>&nbsp;

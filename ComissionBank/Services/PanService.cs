@@ -92,7 +92,6 @@ namespace ComissionBank.Services
                     if(clientId == 0)
                     {
                         Client client = new Client(clientName, advisorInitials);
-                        //_clientService.Insert(client);
 
                         _context.Client.Add(client);
                         try
@@ -111,7 +110,6 @@ namespace ComissionBank.Services
                     if(advisorId == 0)
                     {
                         Advisor advisor = new Advisor(advisorInitials);
-                        //_advisorService.Insert(advisor);
 
                         _context.Advisor.Add(advisor);
                         try
@@ -132,7 +130,9 @@ namespace ComissionBank.Services
 
                     Pan newPan = new Pan(datePan, clientCode, clientName, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
                     pans.Add(newPan);
-                    //Insert(newPan);
+
+                    Pan newPan1 = new Pan(datePan, clientCode, clientName, clientId, advisorId, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
+                    Insert(newPan1);
 
                     /*string strPanValue = fields[5].Trim().Replace("R$", " ");
                     string strPanValue1 = strPanValue.Trim().Replace("-", " ");

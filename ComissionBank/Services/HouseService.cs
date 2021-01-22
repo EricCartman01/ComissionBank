@@ -19,5 +19,15 @@ namespace ComissionBank.Services
         {
             return _context.House.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
         }
+
+        public List<House> FindAll()
+        {
+            return _context.House.ToList();
+        }
+
+        public House FindById(int id)
+        {
+            return _context.House.FirstOrDefault(x => x.Id == id);
+        }
     }
 }
