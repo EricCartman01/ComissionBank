@@ -10,6 +10,7 @@ namespace ComissionBank.Models
     public class Comission
     {
         public int Id { get; set; }
+        public DateTime Register { get; set; } = DateTime.Now;
         public Broker Broker { get; set; }
         public DateTime Date { get; set; }
         public Client Client { get; set; }
@@ -22,8 +23,8 @@ namespace ComissionBank.Models
         public int ProductId { get; set; }
         public string ClientCode { get; set; }
 
-        public Order Order { get; set; }
-        public Yield Yield { get; set; }
+        public string Order { get; set; }
+        public string Yield { get; set; }
 
 
         public double Value { get; set; }

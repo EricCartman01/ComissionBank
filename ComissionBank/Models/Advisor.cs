@@ -26,8 +26,6 @@ namespace ComissionBank.Models
         public DateTime Initial { get; set; }
         public bool Employee { get; set; }
         public string MatrixName { get; set; }
-        public Matrix Matrix { get; set; }
-        public int MatrixId { get; set; }
         public string Cfp { get; set; }
         public double NetCertification { get; set; }
         public double Net { get; set; }

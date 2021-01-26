@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210112214943_Pan.cs" />
-    <Compile Remove="Migrations\20210112214943_Pan.Designer.cs" />
-    <Compile Remove="Migrations\20210119011916_Advisor new values.cs" />
-    <Compile Remove="Migrations\20210119011916_Advisor new values.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />

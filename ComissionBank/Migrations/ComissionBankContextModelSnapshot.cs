@@ -52,8 +52,6 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("JURC");
 
-                    b.Property<int>("MatrixId");
-
                     b.Property<string>("MatrixName");
 
                     b.Property<string>("Name");
@@ -83,8 +81,6 @@ namespace ComissionBank.Migrations
                     b.Property<string>("XpCode");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MatrixId");
 
                     b.ToTable("Advisor");
                 });
@@ -156,17 +152,19 @@ namespace ComissionBank.Migrations
 
                     b.Property<int>("Month");
 
-                    b.Property<int>("Order");
+                    b.Property<string>("Order");
 
                     b.Property<double>("PercentualAdvisor");
 
                     b.Property<int>("ProductId");
 
+                    b.Property<DateTime>("Register");
+
                     b.Property<double>("Value");
 
                     b.Property<int>("Year");
 
-                    b.Property<int>("Yield");
+                    b.Property<string>("Yield");
 
                     b.HasKey("Id");
 
@@ -348,6 +346,8 @@ namespace ComissionBank.Migrations
 
                     b.Property<double>("AdvisorValue");
 
+                    b.Property<double>("BankValue");
+
                     b.Property<int>("ClientId");
 
                     b.Property<string>("ClientName");
@@ -356,17 +356,17 @@ namespace ComissionBank.Migrations
 
                     b.Property<int>("HouseId");
 
-                    b.Property<double>("LiquidValue");
-
                     b.Property<int>("Month");
 
-                    b.Property<double>("NetValue");
+                    b.Property<double>("NetAdvisorValue");
 
                     b.Property<int>("ProductId");
 
-                    b.Property<DateTime>("Record");
+                    b.Property<double>("ProtectLiquidValue");
 
-                    b.Property<double>("Value");
+                    b.Property<double>("ProtectValue");
+
+                    b.Property<DateTime>("Record");
 
                     b.Property<int>("Year");
 
@@ -429,18 +429,10 @@ namespace ComissionBank.Migrations
                     b.ToTable("Xp");
                 });
 
-            modelBuilder.Entity("ComissionBank.Models.Advisor", b =>
-                {
-                    b.HasOne("ComissionBank.Models.Matrix", "Matrix")
-                        .WithMany()
-                        .HasForeignKey("MatrixId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ComissionBank.Models.Comission", b =>
                 {
                     b.HasOne("ComissionBank.Models.Advisor", "Advisor")
-                        .WithMany("Comissions")
+                        .WithMany()
                         .HasForeignKey("AdvisorId")
                         .OnDelete(DeleteBehavior.Cascade);
 

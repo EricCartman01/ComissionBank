@@ -134,27 +134,7 @@ namespace ComissionBank.Services
                     Pan newPan1 = new Pan(datePan, clientCode, clientName, clientId, advisorId, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
                     Insert(newPan1);
 
-                    /*string strPanValue = fields[5].Trim().Replace("R$", " ");
-                    string strPanValue1 = strPanValue.Trim().Replace("-", " ");
-                    double panValue = double.Parse(strPanValue1,CultureInfo.CreateSpecificCulture("pt-BR"));
                     
-                    string strPanLiquidValue = fields[6].Trim().Replace("R$", " ");
-                    string strPanLiquidValue1 = strPanLiquidValue.Trim().Replace("-", " ");
-                    double panLiquidValue = double.Parse(strPanLiquidValue1,CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    string strNetAdvisorValue = fields[7].Trim().Replace("%", " ");
-                    string strNetAdvisorValue1 = strNetAdvisorValue.Trim().Replace("-", " ");
-                    double netAdvisorValue = double.Parse(strNetAdvisorValue1, CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    string strBankValue = fields[8].Trim().Replace("R$-", " ");
-                    string strBankValue1 = strBankValue.Trim().Replace("-R$", " ");
-                    string strBankValue2 = strBankValue1.Trim().Replace("-", " ");
-                    string strBankValue3 = strBankValue2.Trim().Replace("R$", " ");
-
-                    double result;
-                    var isvalid = double.TryParse(strBankValue3, out result);
-                    double bankValue = isvalid ? result : 0;
-                    */
                 }
             }
 

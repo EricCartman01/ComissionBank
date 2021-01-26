@@ -78,12 +78,17 @@ namespace ComissionBank.Services
                         break;
                     }
 
-                    string broker           = fields[0].Trim();
-                    DateTime protectDate    = DateTime.Parse(fields[0], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
+                    DateTime protectDate    = DateTime.Parse(fields[1], CultureInfo.CreateSpecificCulture("pt-BR"), DateTimeStyles.None);
                     string clientName       = fields[2].Trim();
-                    string houseName        = fields[3].Trim();
-                    int houseId             = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
-                    string advisorInitials  = fields[4].Trim();
+                    string houseName        = fields[5].Trim();
+                    
+                    int houseId             = _context.House.Where(x => x.Name.Contains(houseName)).Select(x => x.Id).FirstOrDefault();
+                    if(houseId == 0)
+                    {
+                        houseId = 78;
+                    }
+                    
+                    string advisorInitials  = fields[6].Trim();
                     
                     int clientId            = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     if (clientId == 0)
@@ -120,37 +125,53 @@ namespace ComissionBank.Services
                     }
 
                     string productName  = fields[7].Trim();
-                    int productId   = _context.Product.Where(x => x.Name == productName).Select(x => x.Id).FirstOrDefault();
+                    
+                    int productId   = _context.Product.Where(x => x.Name.Contains(productName)).Select(x => x.Id).FirstOrDefault();
+                    if(productId == 0)
+                    {
+                        productId = 59;
+                    }
 
-                    double value = GetDouble(fields[8]);
-                    double liquidValue = GetDouble(fields[9]);
-                    double netValue = GetDouble(fields[10]) / 100;
-                    double advisorValue = GetDouble(fields[11]);
+                    double protectValue = GetDouble(fields[8]);
+                    double protectLiquidValue = GetDouble(fields[9]);
+                    double netAdvisorValue = GetDouble(fields[10]) / 100;
+                    double bankValue = GetDouble(fields[11]);
+                    double advisorValue = GetDouble(fields[12]);
 
-                    int month = int.Parse(fields[12].Trim());
-                    int year = int.Parse(fields[13].Trim());
+                    int month = GetInt(fields[13]);
+                    int year = GetInt(fields[14]);
 
-                    protects.Add(new Protect(protectDate, clientName, clientId, houseId, advisorId, advisorInitials, productId, value, liquidValue, netValue, advisorValue, month, year));
+                    Protect protect = new Protect(protectDate, clientName, clientId, houseId, advisorId, advisorInitials, productId, protectValue, protectLiquidValue, netAdvisorValue, bankValue, advisorValue, month, year);
+                    protects.Add(protect);
+                    Insert(protect);
                 }
             }
 
-            /*foreach (Protect item in protects)
-            {
-                Insert(item);
-            }*/
             return protects;
         }
         public static double GetDouble(string strDouble)
         {
             var numbers = new Regex(@"[^\d]");
-            double resultDoubleConversion;
-
             string strResult = numbers.Replace(strDouble, "");
+
+            double resultDoubleConversion;
             var isValidComission = double.TryParse(strResult, out resultDoubleConversion);
 
             double doubleResult = (isValidComission ? resultDoubleConversion : 0);
-
             return doubleResult;
+        }
+
+        public static int GetInt(string str)
+        {
+            var alphanumeric = new Regex(@"^\D");
+            string strResult = alphanumeric.Replace(str, "").Trim();
+            
+            int resultIntConversion;
+            var isValidNumber = int.TryParse(strResult, out resultIntConversion);
+
+            int intResult = (isValidNumber ? resultIntConversion : 0);
+            return intResult;
+
         }
     }
 }

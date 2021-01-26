@@ -20,9 +20,10 @@ namespace ComissionBank.Models
         public string AdvisorInitials { get; set; }
         public Product Product { get; set; }
         public int ProductId { get; set; }
-        public double Value { get; set; }
-        public double LiquidValue { get; set; }
-        public double NetValue { get; set; }
+        public double ProtectValue { get; set; }
+        public double ProtectLiquidValue { get; set; }
+        public double NetAdvisorValue { get; set; }
+        public double BankValue { get; set; }
         public double AdvisorValue { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
@@ -32,7 +33,7 @@ namespace ComissionBank.Models
 
         }
 
-        public Protect(DateTime date, string clientName, int clientId, int houseId, int advisorId, string advisorInitials, int productId, double value, double liquidValue, double netValue, double advisorValue, int month, int year)
+        public Protect(DateTime date, string clientName, int clientId, int houseId, int advisorId, string advisorInitials, int productId, double protectValue, double protectLiquidValue, double netAdvisorValue, double bankValue, double advisorValue, int month, int year)
         {
             Date = date;
             ClientName = clientName;
@@ -41,9 +42,10 @@ namespace ComissionBank.Models
             AdvisorId = advisorId;
             AdvisorInitials = advisorInitials;
             ProductId = productId;
-            Value = value;
-            LiquidValue = liquidValue;
-            NetValue = netValue;
+            ProtectValue = protectValue;
+            ProtectLiquidValue = protectLiquidValue;
+            NetAdvisorValue = netAdvisorValue;
+            BankValue = bankValue;
             AdvisorValue = advisorValue;
             Month = month;
             Year = year;

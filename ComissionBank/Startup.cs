@@ -53,6 +53,7 @@ namespace ComissionBank
             services.AddScoped<PanService>();
             services.AddScoped<HouseService>();
             services.AddScoped<ProductService>();
+            services.AddScoped<ProtectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
