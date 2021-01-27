@@ -4,10 +4,51 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ComissionBank.Migrations
 {
-    public partial class Initial : Migration
+    public partial class PORRSA : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Advisor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Record = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Initials = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Cpf = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    Telephone = table.Column<string>(nullable: true),
+                    XpCode = table.Column<string>(nullable: true),
+                    Bank = table.Column<string>(nullable: true),
+                    BankAgency = table.Column<string>(nullable: true),
+                    BankAccount = table.Column<string>(nullable: true),
+                    Initial = table.Column<DateTime>(nullable: false),
+                    Employee = table.Column<bool>(nullable: false),
+                    MatrixName = table.Column<string>(nullable: true),
+                    Cfp = table.Column<string>(nullable: true),
+                    NetCertification = table.Column<double>(nullable: false),
+                    Net = table.Column<double>(nullable: false),
+                    NetBirthday = table.Column<double>(nullable: false),
+                    NetTotal = table.Column<double>(nullable: false),
+                    XPC = table.Column<double>(nullable: false),
+                    CMBC = table.Column<double>(nullable: false),
+                    PROTC = table.Column<double>(nullable: false),
+                    ITAZ = table.Column<double>(nullable: false),
+                    JURC = table.Column<double>(nullable: false),
+                    PAN = table.Column<double>(nullable: false),
+                    XPTable = table.Column<double>(nullable: false),
+                    IsHeadQuarter = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Advisor", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Broker",
                 columns: table => new
@@ -92,34 +133,46 @@ namespace ComissionBank.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Xp",
+                name: "Exchange",
                 columns: table => new
                 {
-                    Register = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Record = table.Column<DateTime>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    ClientCode = table.Column<string>(nullable: true),
-                    ClientName = table.Column<string>(nullable: true),
                     ClientId = table.Column<int>(nullable: false),
+                    Cpf = table.Column<string>(nullable: true),
+                    ClientName = table.Column<string>(nullable: true),
                     AdvisorInitials = table.Column<string>(nullable: true),
-                    ProductName = table.Column<string>(nullable: true),
-                    Market = table.Column<string>(nullable: true),
-                    GrossIncomeValue = table.Column<double>(nullable: false),
-                    GrossLiquidValue = table.Column<double>(nullable: false),
-                    NetProductValue = table.Column<double>(nullable: false),
-                    TransferValue = table.Column<double>(nullable: false),
+                    AdvisorId = table.Column<int>(nullable: false),
+                    HouseExchange = table.Column<string>(nullable: true),
+                    Order = table.Column<string>(nullable: true),
+                    Currency = table.Column<string>(nullable: true),
+                    GrossValue = table.Column<double>(nullable: false),
+                    Value = table.Column<double>(nullable: false),
+                    Cotation = table.Column<double>(nullable: false),
+                    ComissionType = table.Column<string>(nullable: true),
+                    Spread = table.Column<double>(nullable: false),
+                    ComissionValue = table.Column<double>(nullable: false),
                     LiquidValue = table.Column<double>(nullable: false),
                     NetAdvisorValue = table.Column<double>(nullable: false),
+                    BankValue = table.Column<double>(nullable: false),
+                    OperatorValue = table.Column<double>(nullable: false),
                     AdvisorValue = table.Column<double>(nullable: false),
                     Month = table.Column<int>(nullable: false),
                     Year = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Xp", x => x.Id);
+                    table.PrimaryKey("PK_Exchange", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Xp_Client_ClientId",
+                        name: "FK_Exchange_Advisor_AdvisorId",
+                        column: x => x.AdvisorId,
+                        principalTable: "Advisor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Exchange_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
@@ -127,49 +180,37 @@ namespace ComissionBank.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Advisor",
+                name: "Pan",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Record = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Initials = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Cpf = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    Telephone = table.Column<string>(nullable: true),
-                    XpCode = table.Column<string>(nullable: true),
-                    Bank = table.Column<string>(nullable: true),
-                    BankAgency = table.Column<string>(nullable: true),
-                    BankAccount = table.Column<string>(nullable: true),
-                    Initial = table.Column<DateTime>(nullable: false),
-                    Employee = table.Column<bool>(nullable: false),
-                    MatrixName = table.Column<string>(nullable: true),
-                    MatrixId = table.Column<int>(nullable: false),
-                    Cfp = table.Column<string>(nullable: true),
-                    NetCertification = table.Column<double>(nullable: false),
-                    Net = table.Column<double>(nullable: false),
-                    NetBirthday = table.Column<double>(nullable: false),
-                    NetTotal = table.Column<double>(nullable: false),
-                    XPC = table.Column<double>(nullable: false),
-                    CMBC = table.Column<double>(nullable: false),
-                    PROTC = table.Column<double>(nullable: false),
-                    ITAZ = table.Column<double>(nullable: false),
-                    JURC = table.Column<double>(nullable: false),
-                    PAN = table.Column<double>(nullable: false),
-                    XPTable = table.Column<double>(nullable: false),
-                    IsHeadQuarter = table.Column<bool>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    ClientCode = table.Column<string>(nullable: true),
+                    ClientName = table.Column<string>(nullable: true),
+                    ClientId = table.Column<int>(nullable: false),
+                    AdvisorId = table.Column<int>(nullable: false),
+                    AdvisorInitials = table.Column<string>(nullable: true),
+                    PanValue = table.Column<double>(nullable: false),
+                    PanLiquidValue = table.Column<double>(nullable: false),
+                    NetAdvisorValue = table.Column<double>(nullable: false),
+                    BankValue = table.Column<double>(nullable: false),
+                    AdvisorValue = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Advisor", x => x.Id);
+                    table.PrimaryKey("PK_Pan", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Advisor_Matrix_MatrixId",
-                        column: x => x.MatrixId,
-                        principalTable: "Matrix",
+                        name: "FK_Pan_Advisor_AdvisorId",
+                        column: x => x.AdvisorId,
+                        principalTable: "Advisor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pan_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -233,96 +274,6 @@ namespace ComissionBank.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exchange",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Record = table.Column<DateTime>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    ClientId = table.Column<int>(nullable: false),
-                    Cpf = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    AdvisorInitials = table.Column<string>(nullable: true),
-                    AdvisorId = table.Column<int>(nullable: false),
-                    HouseName = table.Column<string>(nullable: true),
-                    HouseId = table.Column<int>(nullable: false),
-                    Order = table.Column<string>(nullable: true),
-                    Currency = table.Column<string>(nullable: true),
-                    GrossValue = table.Column<double>(nullable: false),
-                    Value = table.Column<double>(nullable: false),
-                    Cotation = table.Column<double>(nullable: false),
-                    ComissionType = table.Column<string>(nullable: true),
-                    Spread = table.Column<double>(nullable: false),
-                    Comission = table.Column<double>(nullable: false),
-                    LiquidValue = table.Column<double>(nullable: false),
-                    NetAdvisorValue = table.Column<double>(nullable: false),
-                    BankValue = table.Column<double>(nullable: false),
-                    OperatorValue = table.Column<double>(nullable: false),
-                    AdvisorValue = table.Column<double>(nullable: false),
-                    Month = table.Column<int>(nullable: false),
-                    Year = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exchange", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Exchange_Advisor_AdvisorId",
-                        column: x => x.AdvisorId,
-                        principalTable: "Advisor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Exchange_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Exchange_House_HouseId",
-                        column: x => x.HouseId,
-                        principalTable: "House",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pan",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Record = table.Column<DateTime>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    ClientCode = table.Column<string>(nullable: true),
-                    ClientName = table.Column<string>(nullable: true),
-                    ClientId = table.Column<int>(nullable: false),
-                    AdvisorId = table.Column<int>(nullable: false),
-                    AdvisorInitials = table.Column<string>(nullable: true),
-                    PanValue = table.Column<double>(nullable: false),
-                    PanLiquidValue = table.Column<double>(nullable: false),
-                    NetAdvisorValue = table.Column<double>(nullable: false),
-                    BankValue = table.Column<double>(nullable: false),
-                    AdvisorValue = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pan", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pan_Advisor_AdvisorId",
-                        column: x => x.AdvisorId,
-                        principalTable: "Advisor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Pan_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Protect",
                 columns: table => new
                 {
@@ -373,10 +324,55 @@ namespace ComissionBank.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Advisor_MatrixId",
-                table: "Advisor",
-                column: "MatrixId");
+            migrationBuilder.CreateTable(
+                name: "Xp",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Register = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    ClientCode = table.Column<string>(nullable: true),
+                    ClientName = table.Column<string>(nullable: true),
+                    ClientId = table.Column<int>(nullable: false),
+                    AdvisorInitials = table.Column<string>(nullable: true),
+                    AdvisorId = table.Column<int>(nullable: false),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
+                    Market = table.Column<string>(nullable: true),
+                    GrossIncomeValue = table.Column<double>(nullable: false),
+                    GrossLiquidValue = table.Column<double>(nullable: false),
+                    NetProductValue = table.Column<double>(nullable: false),
+                    TransferValue = table.Column<double>(nullable: false),
+                    LiquidValue = table.Column<double>(nullable: false),
+                    NetAdvisorValue = table.Column<double>(nullable: false),
+                    BankValue = table.Column<double>(nullable: false),
+                    AdvisorValue = table.Column<double>(nullable: false),
+                    Month = table.Column<int>(nullable: false),
+                    Year = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Xp", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Xp_Advisor_AdvisorId",
+                        column: x => x.AdvisorId,
+                        principalTable: "Advisor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Xp_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Xp_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comission_AdvisorId",
@@ -414,11 +410,6 @@ namespace ComissionBank.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exchange_HouseId",
-                table: "Exchange",
-                column: "HouseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pan_AdvisorId",
                 table: "Pan",
                 column: "AdvisorId");
@@ -449,9 +440,19 @@ namespace ComissionBank.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Xp_AdvisorId",
+                table: "Xp",
+                column: "AdvisorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Xp_ClientId",
                 table: "Xp",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Xp_ProductId",
+                table: "Xp",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -461,6 +462,9 @@ namespace ComissionBank.Migrations
 
             migrationBuilder.DropTable(
                 name: "Exchange");
+
+            migrationBuilder.DropTable(
+                name: "Matrix");
 
             migrationBuilder.DropTable(
                 name: "Pan");
@@ -475,19 +479,16 @@ namespace ComissionBank.Migrations
                 name: "Broker");
 
             migrationBuilder.DropTable(
-                name: "Advisor");
-
-            migrationBuilder.DropTable(
                 name: "House");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Advisor");
 
             migrationBuilder.DropTable(
                 name: "Client");
 
             migrationBuilder.DropTable(
-                name: "Matrix");
+                name: "Product");
         }
     }
 }

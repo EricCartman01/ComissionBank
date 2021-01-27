@@ -48,5 +48,13 @@ namespace ComissionBank.Models
             Name = name;
             AdvisorInitials = advisorInitials;
         }
+
+        public Client(string clientName, string clientCode, string advisorInitials, string cpf)
+        {
+            Name = clientName;
+            ClientCode = clientCode;
+            AdvisorInitials = advisorInitials;
+            Cpf = cpf;
+        }
     }
 }

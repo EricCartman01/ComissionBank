@@ -10,7 +10,6 @@ namespace ComissionBank.Services
     public class ComissionService
     {
         private readonly ComissionBankContext _context;
-        private readonly ClientService _clientService;
 
         public ComissionService(ComissionBankContext comissionBankContext)
         {
@@ -21,7 +20,7 @@ namespace ComissionBank.Services
         {
             if (!_context.Client.Any(x => x.Cpf == comission.Client.Cpf))
             {
-                _clientService.Insert(comission.Client);
+                //Insert(comission.Client);
             }
 
             //var _cpf = _clientService.FindByCpf(comission.Client.Cpf);

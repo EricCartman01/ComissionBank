@@ -8,37 +8,48 @@
 <br />
 <h1 class="card-title text-center">@ViewData["Title"]</h1>
 <a asp-action="Create" class="btn btn-default">Novo Lançamento</a>
+<a asp-action="Import" class="btn btn-default">Importar Câmbio</a>
 
 <table class="table table-striped table-hover">
     <thead>
         <tr class="success">
             <td>@Html.DisplayNameFor(model => model.Date)</td>
-            <td>@Html.DisplayNameFor(model => model.Advisor.Name) </td>
+            <td>@Html.DisplayNameFor(model => model.ClientId)</td>
+            <td>@Html.DisplayNameFor(model => model.AdvisorInitials)</td>
+            <td>@Html.DisplayNameFor(model => model.HouseExchange)</td>
+            <td>@Html.DisplayNameFor(model => model.Order)</td>
             <td>@Html.DisplayNameFor(model => model.Currency)</td>
             <td>@Html.DisplayNameFor(model => model.GrossValue)</td>
             <td>@Html.DisplayNameFor(model => model.Value)</td>
             <td>@Html.DisplayNameFor(model => model.Cotation)</td>
             <td>@Html.DisplayNameFor(model => model.ComissionType)</td>
-            <td>@Html.DisplayNameFor(model => model.Spread)</td>
-            <td>@Html.DisplayNameFor(model => model.Comission)</td>
+            <td>@Html.DisplayNameFor(model => model.LiquidValue)</td>
             <td>@Html.DisplayNameFor(model => model.NetAdvisorValue)</td>
+            <td>@Html.DisplayNameFor(model => model.BankValue)</td>
+            <td>@Html.DisplayNameFor(model => model.OperatorValue)</td>
+            <td>@Html.DisplayNameFor(model => model.AdvisorValue)</td>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@Html.DisplayFor(x => item.Date)</td>
-                <td>@Html.DisplayFor(x => item.Advisor.Name)</td>
-                <td>@Html.DisplayFor(x => item.Currency)</td>
-                <td>@Html.DisplayFor(x => item.GrossValue)</td>
-                <td>@Html.DisplayFor(x => item.Value) </td>
-                <td>@Html.DisplayFor(x => item.Cotation) </td>
-                <td>@Html.DisplayFor(x => item.ComissionType) </td>
-                <td>@Html.DisplayFor(x => item.Spread)</td>
-                <td>@Html.DisplayFor(x => item.Comission)</td>
-                <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(x => item.Date)</td>
+            <td>@Html.DisplayFor(x => item.ClientId)</td>
+            <td>@Html.DisplayFor(x => item.AdvisorInitials)</td>
+            <td>@Html.DisplayFor(x => item.HouseExchange)</td>
+            <td>@Html.DisplayFor(x => item.Order)</td>
+            <td>@Html.DisplayFor(x => item.Currency)</td>
+            <td>@Html.DisplayFor(x => item.GrossValue)</td>
+            <td>@Html.DisplayFor(x => item.Value)</td>
+            <td>@Html.DisplayFor(x => item.Cotation)</td>
+            <td>@Html.DisplayFor(x => item.ComissionType)</td>
+            <td>@Html.DisplayFor(x => item.LiquidValue)</td>
+            <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
+            <td>@Html.DisplayFor(x => item.BankValue)</td>
+            <td>@Html.DisplayFor(x => item.OperatorValue)</td>
+            <td>@Html.DisplayFor(x => item.AdvisorValue)</td>
+        </tr>
         }
 
     </tbody>

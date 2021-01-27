@@ -90,5 +90,11 @@ namespace ComissionBank.Controllers
             }
             return View(obj);
         }
+
+        public IActionResult Import()
+        {
+            var xps = _xpService.Import();
+            return View(xps);
+        }
     }
 }

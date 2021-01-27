@@ -1,18 +1,12 @@
-﻿@model Exchange
+﻿@model Xp
 @{
-    ViewData["Title"] = "Detalhes do Câmbio";
+    ViewData["Title"] = "Detalhes da Comissão XP";
 }
 <h3>@ViewData["Title"]</h3>
 <hr />
 
 <div>
     <div class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ClientName)
         </dt>
@@ -26,22 +20,28 @@
             @Html.DisplayFor(model => model.AdvisorInitials)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.GrossValue)
+            @Html.DisplayNameFor(model => model.ProductName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.GrossValue)
+            @Html.DisplayFor(model => model.ProductName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Value)
+            @Html.DisplayNameFor(model => model.GrossLiquidValue)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Value)
+            @Html.DisplayFor(model => model.GrossLiquidValue)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Spread)
+            @Html.DisplayNameFor(model => model.TransferValue)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Spread)
+            @Html.DisplayFor(model => model.TransferValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NetAdvisorValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NetAdvisorValue)
         </dd>
     </div>
 </div>

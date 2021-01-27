@@ -80,7 +80,6 @@ namespace ComissionBank.Services
                     string data1 = fields[0].Replace(" ",String.Empty);
                     string data2 = Regex.Replace(data1, @"\s", "");
                     string data3 = String.Concat(data2.Where(x => !Char.IsWhiteSpace(x)));
-                    int ano1 = int.Parse(data3.Substring(6, 2));
                     */
 
                     if (fields[0] == "")
@@ -88,15 +87,15 @@ namespace ComissionBank.Services
                         break;
                     }
 
-                    DateTime data   = DateTime.Parse(fields[0],CultureInfo.CreateSpecificCulture("pt-BR"),DateTimeStyles.None);
+                    DateTime date   = DateTime.Parse(fields[0],CultureInfo.CreateSpecificCulture("pt-BR"),DateTimeStyles.None);
                     string clientCpf = fields[1];
                     string clientName = fields[2];
                     string advisorInitials = fields[3].Trim();
 
-                    int clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                    int clientId = _context.Client.Where(x => x.Name == clientName).Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     if (clientId == 0)
                     {
-                        Client client = new Client(clientName, advisorInitials);
+                        Client client = new Client(clientName, "code0", advisorInitials, clientCpf);
 
                         _context.Client.Add(client);
                         try
@@ -107,7 +106,7 @@ namespace ComissionBank.Services
                         {
                             throw new Exception(e.Message);
                         }
-                        clientId = _context.Client.Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
+                        clientId = _context.Client.Where(x => x.Name == clientName).Where(x => x.AdvisorInitials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
                     int advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
@@ -127,59 +126,60 @@ namespace ComissionBank.Services
                         advisorId = _context.Advisor.Where(x => x.Initials == advisorInitials).Select(x => x.Id).FirstOrDefault();
                     }
 
-                    string houseName = fields[4];
-                    int houseId = _context.House.Where(x => x.Name == houseName).Select(x => x.Id).FirstOrDefault();
-
-                    string order    = fields[5];
+                    string houseExchange = fields[4].Trim();
+                    string order = fields[5];
                     string currency = fields[6];
 
-                    string strGrossValue    = fields[7].Trim().Replace('$',' ');
-                    double grossValue       = double.Parse(strGrossValue, CultureInfo.CreateSpecificCulture("pt-BR"));
-                    
-                    string strValue     = fields[8].Trim().Replace("R$", " ");
-                    double value        = double.Parse(strValue);
-                    
-                    string strCotation  = fields[9].Trim().Replace("R$", " ");
-                    double cotation     = double.Parse(strCotation, CultureInfo.CreateSpecificCulture("pt-BR"));
-                    
+                    double grossValue = GetDouble(fields[7]);
+                    double value = GetDouble(fields[8]);
+                    double cotation = GetDouble(fields[9]);
                     string comissionType = fields[10];
-                    
-                    string strSpread    = fields[11].Trim().Replace(" ", " ");
-                    double spread       = double.Parse(strSpread);
-                    
-                    string strComission     = fields[12].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    
-                    double resultComission;
-                    var isValidComission    = double.TryParse(strComission, out resultComission);
-                    double comission        = isValidComission ? resultComission : 0;
-
-                    string strLiquidValue   = fields[13].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double liquidValue      = double.Parse(strLiquidValue);
-
-                    string strNetAdvisorValue   = fields[14].Trim().Replace("%","");
-                    double netAdvisorValue      = double.Parse(strNetAdvisorValue);
-
-                    string strBankValue     = fields[15].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double bankValue        = double.Parse(strBankValue, CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    string strOperatorValue     = fields[16].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double operatorValue        = double.Parse(strOperatorValue);
-
-                    string strAdvisorValue  = fields[17].Trim().Replace("R$", " ").Replace("-R$", " ").Replace("-", " ");
-                    double advisorValue     = double.Parse(strAdvisorValue);
+                    double spread = GetDouble(fields[11]);
+                    double comissionValue = GetDouble(fields[12]);
+                    double liquidValue = GetDouble(fields[13]);
+                    double netAdvisorValue = GetDouble(fields[14]);
+                    double bankValue = GetDouble(fields[15]);
+                    double operatorValue = GetDouble(fields[16]);
+                    double advisorValue = GetDouble(fields[17]);
 
                     int month   = int.Parse(fields[18].Trim());
                     int year    = int.Parse(fields[19].Trim());
 
-                    exchanges.Add(new Exchange(data, clientCpf, clientName, advisorInitials, houseName, houseId, order, currency, grossValue, value, cotation, comissionType, spread, comission, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month,year));
+                    Exchange exchange = new Exchange(date, clientId, clientCpf, clientName, advisorInitials, advisorId, houseExchange, order, currency, grossValue, value, cotation, comissionType, spread, comissionValue, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month, year);
+                    exchanges.Add(exchange);
+                    Insert(exchange);
 
-                    break;
                 }
                 
             }
 
             return exchanges;
             
+        }
+
+        public static double GetDouble(string strDouble)
+        {
+            var numbers = new Regex(@"[^\d]");
+            string strResult = numbers.Replace(strDouble, "");
+
+            double resultDoubleConversion;
+            var isValidComission = double.TryParse(strResult, out resultDoubleConversion);
+
+            double doubleResult = (isValidComission ? resultDoubleConversion : 0);
+            return doubleResult;
+        }
+
+        public static int GetInt(string str)
+        {
+            var alphanumeric = new Regex(@"^\D");
+            string strResult = alphanumeric.Replace(str, "").Trim();
+
+            int resultIntConversion;
+            var isValidNumber = int.TryParse(strResult, out resultIntConversion);
+
+            int intResult = (isValidNumber ? resultIntConversion : 0);
+            return intResult;
+
         }
 
     }

@@ -85,7 +85,7 @@ namespace ComissionBank.Services
                     int houseId             = _context.House.Where(x => x.Name.Contains(houseName)).Select(x => x.Id).FirstOrDefault();
                     if(houseId == 0)
                     {
-                        houseId = 78;
+                        houseId = 26;
                     }
                     
                     string advisorInitials  = fields[6].Trim();
@@ -129,7 +129,7 @@ namespace ComissionBank.Services
                     int productId   = _context.Product.Where(x => x.Name.Contains(productName)).Select(x => x.Id).FirstOrDefault();
                     if(productId == 0)
                     {
-                        productId = 59;
+                        productId = 117;
                     }
 
                     double protectValue = GetDouble(fields[8]);
