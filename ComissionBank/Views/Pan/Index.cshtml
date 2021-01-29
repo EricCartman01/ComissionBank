@@ -20,6 +20,7 @@
             <td>@Html.DisplayNameFor(model => model.PanLiquidValue)</td>
             <td>@Html.DisplayNameFor(model => model.NetAdvisorValue)</td>
             <td>@Html.DisplayNameFor(model => model.AdvisorValue)</td>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +35,9 @@
             <td>@Html.DisplayFor(x => item.PanLiquidValue)</td>
             <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
             <td>@Html.DisplayFor(x => item.AdvisorValue)</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>&nbsp;
+            </td>
         </tr>
         }
 

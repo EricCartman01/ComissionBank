@@ -20,7 +20,18 @@ namespace ComissionBank.Services
         {
             _context = comissionBankContext;
         }
+        public double GetTotal()
+        {
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
 
+            month = 12;
+            year = 2018;
+
+            double totalExchange = _context.Exchange.Where(x => x.Date.Month == month).Where(x => x.Date.Year == year).Sum(x => x.BankValue);
+
+            return totalExchange;
+        }
         public void Insert(Exchange exchange)
         {
             _context.Exchange.Add(exchange);
