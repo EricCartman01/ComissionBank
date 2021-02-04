@@ -88,10 +88,9 @@ namespace ComissionBank.Services
             }
         }
 
-        public List<Xp> Import()
+        public void Import()
         {
             string path = @"c:\temp\xp.csv";
-            List<Xp> xps  = new List<Xp>();
 
             using (StreamReader streamReader = File.OpenText(path))
             {
@@ -164,12 +163,10 @@ namespace ComissionBank.Services
                     int year = GetInt(fields[16]); ;
 
                     Xp xp = new Xp(date, clientCode, clientName, clientId, advisorInitials, advisorId, productName, productId, market, grossIncomeValue, grossLiquidValue, netProductValue, transferValue, liquidValue, netAdvisorValue, bankValue, advisorValue, month, year);
-                    xps.Add(xp);
                     Insert(xp);
                 }
             }
 
-            return xps;
         }
         public static double GetDouble(string strDouble)
         {

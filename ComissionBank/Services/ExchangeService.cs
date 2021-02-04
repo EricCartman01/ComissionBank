@@ -92,10 +92,9 @@ namespace ComissionBank.Services
             return _context.Exchange.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<Exchange> Import()
+        public void Import()
         {
             string path = @"c:\temp\cambio.csv";
-            List<Exchange> exchanges = new List<Exchange>();
 
             using (StreamReader streamReader = File.OpenText(path))
             {
@@ -176,15 +175,12 @@ namespace ComissionBank.Services
                     int year    = int.Parse(fields[19].Trim());
 
                     Exchange exchange = new Exchange(date, clientId, clientCpf, clientName, advisorInitials, advisorId, houseExchange, order, currency, grossValue, value, cotation, comissionType, spread, comissionValue, liquidValue, netAdvisorValue, bankValue, operatorValue, advisorValue, month, year);
-                    exchanges.Add(exchange);
                     Insert(exchange);
 
                 }
                 
             }
 
-            return exchanges;
-            
         }
 
         public static double GetDouble(string strDouble)

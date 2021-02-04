@@ -14,7 +14,6 @@ namespace ComissionBank.Controllers
     public class ExchangeController : Controller
     {
         private readonly ExchangeService _exchangeService;
-        //private readonly AdvisorService _advisorService;
 
         public ExchangeController(ExchangeService exchangeService)
         {
@@ -113,8 +112,8 @@ namespace ComissionBank.Controllers
 
         public IActionResult Import()
         {
-            var exchanges = _exchangeService.Import();
-            return View(exchanges);
+            _exchangeService.Import();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

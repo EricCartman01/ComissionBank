@@ -93,8 +93,8 @@ namespace ComissionBank.Controllers
 
         public IActionResult Import()
         {
-            var xps = _xpService.Import();
-            return View(xps);
+            _xpService.Import();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

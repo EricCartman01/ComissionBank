@@ -46,8 +46,8 @@ namespace ComissionBank.Controllers
 
         public IActionResult Import()
         {
-            var pans = _panService.Import();
-            return View(pans);
+            _panService.Import();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Edit(int? id)

@@ -92,7 +92,6 @@ namespace ComissionBank.Services
         public void Import()
         {
             string path = @"c:\temp\protect.csv";
-            List<Protect> protects = new List<Protect>();
 
             using(StreamReader streamReader = File.OpenText(path))
             {
@@ -171,7 +170,6 @@ namespace ComissionBank.Services
                     int year = GetInt(fields[14]);
 
                     Protect protect = new Protect(protectDate, clientName, clientId, houseId, advisorId, advisorInitials, productId, protectValue, protectLiquidValue, netAdvisorValue, bankValue, advisorValue, month, year);
-                    //protects.Add(protect);
                     Insert(protect);
                 }
             }

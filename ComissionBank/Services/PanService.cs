@@ -90,10 +90,9 @@ namespace ComissionBank.Services
             return _context.Pan.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<Pan> Import()
+        public void Import()
         {
             string path = @"c:\temp\pan.csv";
-            List<Pan> pans = new List<Pan>();
 
             using (StreamReader streamReader = File.OpenText(path))
             {
@@ -157,9 +156,6 @@ namespace ComissionBank.Services
                     double netAdvisorValue = GetDouble(fields[7]);
                     double bankValue = GetDouble(fields[8]);
 
-                    Pan newPan = new Pan(datePan, clientCode, clientName, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
-                    pans.Add(newPan);
-
                     Pan newPan1 = new Pan(datePan, clientCode, clientName, clientId, advisorId, advisorInitials, panValue, panLiquidValue, netAdvisorValue, bankValue);
                     Insert(newPan1);
 
@@ -167,7 +163,6 @@ namespace ComissionBank.Services
                 }
             }
 
-            return pans;
         }
 
         public static double GetDouble(string strDouble)

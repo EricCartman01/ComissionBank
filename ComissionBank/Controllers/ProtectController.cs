@@ -89,8 +89,6 @@ namespace ComissionBank.Controllers
 
         public IActionResult Import()
         {
-            //var protects = _protectService.Import();
-            //return View(protects);
             _protectService.Import();
             return RedirectToAction(nameof(Index));
         }
