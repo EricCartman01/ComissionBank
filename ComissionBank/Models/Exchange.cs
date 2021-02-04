@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ComissionBank.Models.Enums;
+using System.Globalization;
 
 namespace ComissionBank.Models
 {
@@ -68,5 +69,16 @@ namespace ComissionBank.Models
             Month = month;
             Year = year;
         }
+
+        public string DateFormated { get { return Date.ToShortDateString(); }}
+        public string GrossValueFormated { get { return GrossValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string ValueFormated { get { return Value.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string CotationFormated { get { return Cotation.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string ComissionTypeFormated { get { return ComissionType.Substring(0, 1); } }
+        public string LiquidValueFormated { get { return LiquidValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string NetAdvisorValueFormated { get { return NetAdvisorValue + "%"; } }
+        public string BankValueFormated { get { return BankValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string OperatorValueFormated { get { return OperatorValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string AdvisorValueFormated { get { return AdvisorValue.ToString("C2", CultureInfo.CurrentCulture); } }
     }
 }

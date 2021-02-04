@@ -32,9 +32,25 @@ namespace ComissionBank.Services
 
             return totalXP;
         }
+        public double GetTotalAdvisor(int id)
+        {
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+
+            month = 12;
+            year = 2018;
+
+            double totalXP = _context.Xp.Where(x => x.AdvisorId == id).Where(x => x.Date.Month == month).Where(x => x.Date.Year == year).Sum(x => x.BankValue);
+
+            return totalXP;
+        }
         public List<Xp> FindAll()
         {
             return _context.Xp.ToList();
+        }
+        public List<Xp> Top(int num)
+        {
+            return _context.Xp.Take(num).ToList();
         }
 
         public void Insert(Xp xp)

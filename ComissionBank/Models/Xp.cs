@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ComissionBank.Models
 {
@@ -59,5 +60,15 @@ namespace ComissionBank.Models
             Month = month;
             Year = year;
         }
+
+        public string DateFormated { get { return Date.ToShortDateString(); }}
+        public string GrossIncomeValueFormated { get { return GrossIncomeValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string GrossLiquidValueFormated { get { return GrossLiquidValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string NetProductValueFormated { get { return NetProductValue + "%"; } }
+        public string TransferValueFormated { get { return TransferValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string LiquidValueFormated { get { return LiquidValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string NetAdvisorValueFormated { get { return NetAdvisorValue + "%"; } }
+        public string BankValueFormated { get { return BankValue.ToString("C2", CultureInfo.CurrentCulture); } }
+        public string AdvisorValueFormated { get { return AdvisorValue.ToString("C2", CultureInfo.CurrentCulture); } }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model ComissionBank.Models.ViewModels.DashboardViewModel;
+@{
+    ViewData["Title"] = "Detalhes do Assessor";
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+<div>
+    <div class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Advisor.Name);
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Advisor.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Advisor.Initials)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Advisor.Initials)
+        </dd>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>

@@ -32,6 +32,20 @@ namespace ComissionBank.Services
 
             return totalExchange;
         }
+        
+        public double GetTotalAdvisor(int id)
+        {
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+
+            month = 12;
+            year = 2018;
+
+            double totalExchange = _context.Exchange.Where(x => x.Id == id).Where(x => x.Date.Month == month).Where(x => x.Date.Year == year).Sum(x => x.BankValue);
+
+            return totalExchange;
+        }
+
         public void Insert(Exchange exchange)
         {
             _context.Exchange.Add(exchange);
@@ -66,6 +80,11 @@ namespace ComissionBank.Services
         public List<Exchange> FindAll()
         {
             return _context.Exchange.ToList(); 
+        }
+
+        public List<Exchange> Top(int num)
+        {
+            return _context.Exchange.Take(num).ToList();
         }
 
         public Exchange FindById(int id)

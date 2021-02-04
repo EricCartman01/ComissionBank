@@ -33,6 +33,19 @@ namespace ComissionBank.Services
 
             return totalPan;
         }
+
+        public double GetTotalAdvisor(int id)
+        {
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+
+            month = 12;
+            year = 2018;
+
+            double totalPan = _context.Pan.Where(x => x.AdvisorId == id).Where(x => x.Date.Month == month).Where(x => x.Date.Year == year).Sum(x => x.BankValue);
+
+            return totalPan;
+        }
         public void Insert(Pan pan)
         {
             _context.Pan.Add(pan);
@@ -68,6 +81,10 @@ namespace ComissionBank.Services
             return _context.Pan.ToList();
         }
 
+        public List<Pan> Top(int num)
+        {
+            return _context.Pan.Take(num).ToList();
+        }
         public Pan FindById(int id)
         {
             return _context.Pan.FirstOrDefault(x => x.Id == id);

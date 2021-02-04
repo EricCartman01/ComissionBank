@@ -35,21 +35,21 @@
         @foreach (var item in Model)
         {
         <tr>
-            <td>@Html.DisplayFor(x => item.Date)</td>
+            <td>@Html.DisplayFor(x => item.DateFormated)</td>
             <td>@Html.DisplayFor(x => item.ClientId)</td>
             <td>@Html.DisplayFor(x => item.AdvisorInitials)</td>
             <td>@Html.DisplayFor(x => item.HouseExchange)</td>
             <td>@Html.DisplayFor(x => item.Order)</td>
             <td>@Html.DisplayFor(x => item.Currency)</td>
-            <td>@Html.DisplayFor(x => item.GrossValue)</td>
-            <td>@Html.DisplayFor(x => item.Value)</td>
-            <td>@Html.DisplayFor(x => item.Cotation)</td>
-            <td>@Html.DisplayFor(x => item.ComissionType)</td>
-            <td>@Html.DisplayFor(x => item.LiquidValue)</td>
-            <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
-            <td>@Html.DisplayFor(x => item.BankValue)</td>
-            <td>@Html.DisplayFor(x => item.OperatorValue)</td>
-            <td>@Html.DisplayFor(x => item.AdvisorValue)</td>
+            <td>@Html.DisplayFor(x => item.GrossValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.ValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.CotationFormated)</td>
+            <td>@Html.DisplayFor(x => item.ComissionTypeFormated)</td>
+            <td>@Html.DisplayFor(x => item.LiquidValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.NetAdvisorValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.BankValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.OperatorValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.AdvisorValueFormated)</td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>&nbsp;
             </td>

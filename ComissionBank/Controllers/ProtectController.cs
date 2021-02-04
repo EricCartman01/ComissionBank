@@ -19,7 +19,7 @@ namespace ComissionBank.Controllers
         }
         public IActionResult Index()
         {
-            List<Protect> protects = _protectService.FindAll();
+            List<Protect> protects = _protectService.Top(50);
             return View(protects);
         }
 
@@ -89,8 +89,10 @@ namespace ComissionBank.Controllers
 
         public IActionResult Import()
         {
-            var protects = _protectService.Import();
-            return View(protects);
+            //var protects = _protectService.Import();
+            //return View(protects);
+            _protectService.Import();
+            return RedirectToAction(nameof(Index));
         }
         
     }

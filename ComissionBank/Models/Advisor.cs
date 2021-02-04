@@ -40,8 +40,9 @@ namespace ComissionBank.Models
         public double XPTable { get; set; }
         public bool IsHeadQuarter { get; set; }
         public bool IsActive { get; set; } = true;
-        
+
         //public ICollection<Comission> Comissions { get; set; } = new List<Comission>();
+        //public ICollection<Pan> Pans { get; set; } = new List<Pan>();
 
         public Advisor()
         {
@@ -84,5 +85,11 @@ namespace ComissionBank.Models
             Initials = initials;
             Email = email;
         }
+
+        /*public List<Pan> GetPans(DateTime initial, DateTime final)
+        {
+            //return Sales.Where(x => x.Date >= initial && x.Date <= final).Sum(x => x.Amount);
+            return Pan.Where(x => x.Date >= initial && x.Date <= final).Sum(x => x.PanValue);
+        }*/
     }
 }

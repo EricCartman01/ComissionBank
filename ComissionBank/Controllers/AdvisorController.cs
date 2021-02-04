@@ -19,6 +19,10 @@ namespace ComissionBank.Controllers
             _advisorService = advisorService;
         }
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             var list = _advisorService.FindAll();

@@ -29,15 +29,15 @@
         @foreach (var item in Model)
         {
         <tr>
-            <td>@Html.DisplayFor(x => item.Date)</td>
+            <td>@Html.DisplayFor(x => item.DateFormated)</td>
             <td>@Html.DisplayFor(x => item.ClientName)</td>
             <td>@Html.DisplayFor(x => item.House)</td>
             <td>@Html.DisplayFor(x => item.AdvisorInitials)</td>
             <td>@Html.DisplayFor(x => item.Product)</td>
-            <td>@Html.DisplayFor(x => item.ProtectValue)</td>
-            <td>@Html.DisplayFor(x => item.ProtectLiquidValue)</td>
-            <td>@Html.DisplayFor(x => item.NetAdvisorValue)</td>
-            <td>@Html.DisplayFor(x => item.AdvisorValue)</td>
+            <td>@Html.DisplayFor(x => item.ProtectValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.ProtectLiquidValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.NetAdvisorValueFormated)</td>
+            <td>@Html.DisplayFor(x => item.AdvisorValueFormated)</td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>&nbsp;
             </td>

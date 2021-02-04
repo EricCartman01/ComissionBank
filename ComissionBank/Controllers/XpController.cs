@@ -20,7 +20,7 @@ namespace ComissionBank.Controllers
 
         public IActionResult Index()
         {
-            List<Xp> xps = _xpService.FindAll();
+            List<Xp> xps = _xpService.Top(50);
             return View(xps);
         }
 

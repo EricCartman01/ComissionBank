@@ -32,6 +32,19 @@ namespace ComissionBank.Services
 
             return totalProtect;
         }
+
+        public double GetTotalAdvisor(int id)
+        {
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+
+            month = 12;
+            year = 2018;
+
+            double totalProtect = _context.Protect.Where(x => x.AdvisorId == id).Where(x => x.Date.Month == month).Where(x => x.Date.Year == year).Sum(x => x.BankValue);
+
+            return totalProtect;
+        }
         public Protect FindById(int id)
         {
             return _context.Protect.FirstOrDefault(x => x.Id == id);
@@ -72,7 +85,11 @@ namespace ComissionBank.Services
             return _context.Protect.ToList();
         }
 
-        public List<Protect> Import()
+        public List<Protect> Top(int num)
+        {
+            return _context.Protect.Take(num).ToList();
+        }
+        public void Import()
         {
             string path = @"c:\temp\protect.csv";
             List<Protect> protects = new List<Protect>();
@@ -154,12 +171,11 @@ namespace ComissionBank.Services
                     int year = GetInt(fields[14]);
 
                     Protect protect = new Protect(protectDate, clientName, clientId, houseId, advisorId, advisorInitials, productId, protectValue, protectLiquidValue, netAdvisorValue, bankValue, advisorValue, month, year);
-                    protects.Add(protect);
+                    //protects.Add(protect);
                     Insert(protect);
                 }
             }
 
-            return protects;
         }
         public static double GetDouble(string strDouble)
         {

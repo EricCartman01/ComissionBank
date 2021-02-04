@@ -19,7 +19,7 @@ namespace ComissionBank.Controllers
 
         public IActionResult Index()
         {
-            List<Pan> pans = _panService.FindAll();
+            List<Pan> pans = _panService.Top(50);
             return View(pans);
         }
 
