@@ -18,9 +18,9 @@ namespace ComissionBank.Controllers
             _xpService = xpService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Xp> xps = _xpService.Top(50);
+            List<Xp> xps = await _xpService.Top(50);
             return View(xps);
         }
 

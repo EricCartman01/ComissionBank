@@ -7,6 +7,7 @@ using ComissionBank.Services;
 using ComissionBank.Models;
 using ComissionBank.Services.Exceptions;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComissionBank.Controllers
 {
@@ -23,9 +24,9 @@ namespace ComissionBank.Controllers
         {
             return View();
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _advisorService.FindAll();
+            var list = await _advisorService.FindAll();
             return View(list);
         }
 
@@ -42,12 +43,12 @@ namespace ComissionBank.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Advisor advisor)
+        public async Task<IActionResult> Create(Advisor advisor)
         {
             if(advisor.Password == null){
                 advisor.Password = _advisorService.GetRandomAlphanumericString(8);
             }
-            _advisorService.Insert(advisor);
+            await _advisorService.Insert(advisor);
             return RedirectToAction(nameof(Index));
         }
 

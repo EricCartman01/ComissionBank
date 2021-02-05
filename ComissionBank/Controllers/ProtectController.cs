@@ -17,9 +17,9 @@ namespace ComissionBank.Controllers
         {
             _protectService = protectService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Protect> protects = _protectService.Top(50);
+            List<Protect> protects = await _protectService.Top(50);
             return View(protects);
         }
 

@@ -44,13 +44,13 @@ namespace ComissionBank.Services
 
             return totalXP;
         }
-        public List<Xp> FindAll()
+        public async Task<List<Xp>> FindAll()
         {
-            return _context.Xp.ToList();
+            return await _context.Xp.ToListAsync();
         }
-        public List<Xp> Top(int num)
+        public async Task<List<Xp>> Top(int num)
         {
-            return _context.Xp.Take(num).ToList();
+            return await _context.Xp.Take(num).ToListAsync();
         }
 
         public void Insert(Xp xp)

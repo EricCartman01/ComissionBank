@@ -19,9 +19,9 @@ namespace ComissionBank.Controllers
         {
             _exchangeService = exchangeService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var exchanges = _exchangeService.FindAll();
+            var exchanges = await _exchangeService.FindAll();
             return View(exchanges);
         }
 

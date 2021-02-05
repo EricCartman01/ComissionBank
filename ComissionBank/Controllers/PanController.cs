@@ -17,9 +17,9 @@ namespace ComissionBank.Controllers
             _panService = panService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Pan> pans = _panService.Top(50);
+            List<Pan> pans = await _panService.Top(50);
             return View(pans);
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ComissionBank.Data;
 using ComissionBank.Models;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComissionBank.Services
 {
@@ -27,9 +28,14 @@ namespace ComissionBank.Services
             return _context.Client.FirstOrDefault(x => x.Id == Id);
         }
 
-        public List<Client> FindAll()
+        public async Task<List<Client>> FindAll()
         {
-            return _context.Client.ToList();
+            return await _context.Client.ToListAsync();
+        }
+
+        public async Task<List<Client>> Top(int num)
+        {
+            return await _context.Client.Take(num).ToListAsync();
         }
 
         public int GetIdByAdvisorInitials(string advisorInitials)

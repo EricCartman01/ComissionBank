@@ -77,14 +77,14 @@ namespace ComissionBank.Services
             }
         }
 
-        public List<Exchange> FindAll()
+        public async Task<List<Exchange>> FindAll()
         {
-            return _context.Exchange.ToList(); 
+            return await _context.Exchange.ToListAsync();
         }
 
-        public List<Exchange> Top(int num)
+        public async Task<List<Exchange>> Top(int num)
         {
-            return _context.Exchange.Take(num).ToList();
+            return await _context.Exchange.Take(num).ToListAsync();
         }
 
         public Exchange FindById(int id)

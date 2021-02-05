@@ -17,9 +17,9 @@ namespace ComissionBank.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _productService.FindAll();
+            var list = await _productService.FindAll();
             return View(list);
         }
 

@@ -16,9 +16,9 @@ namespace ComissionBank.Controllers
         {
             _houseService = houseService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<House> houses = _houseService.FindAll();
+            List<House> houses = await _houseService.FindAll();
             return View(houses);
         }
 

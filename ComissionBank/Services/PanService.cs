@@ -8,6 +8,7 @@ using System.IO;
 using ComissionBank.Services.Exceptions;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComissionBank.Services
 {
@@ -76,14 +77,14 @@ namespace ComissionBank.Services
             }
         }
 
-        public List<Pan> FindAll()
+        public async Task<List<Pan>> FindAll()
         {
-            return _context.Pan.ToList();
+            return await _context.Pan.ToListAsync();
         }
 
-        public List<Pan> Top(int num)
+        public async Task<List<Pan>> Top(int num)
         {
-            return _context.Pan.Take(num).ToList();
+            return await _context.Pan.Take(num).ToListAsync();
         }
         public Pan FindById(int id)
         {

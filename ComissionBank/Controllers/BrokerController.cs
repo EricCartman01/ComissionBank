@@ -18,7 +18,7 @@ namespace ComissionBank.Controllers
         }
         public IActionResult Index()
         {
-            var brokers = _brokerService.FindAll();
+            var brokers = _brokerService.Top(50);
             return View(brokers);
         }
 

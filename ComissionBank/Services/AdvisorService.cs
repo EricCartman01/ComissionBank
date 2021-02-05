@@ -22,10 +22,10 @@ namespace ComissionBank.Services
             _context = comissionBankContext;
         }
 
-        public void Insert(Advisor advisor)
+        public async Task Insert(Advisor advisor)
         {
             _context.Add(advisor);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
         }
 
@@ -54,9 +54,9 @@ namespace ComissionBank.Services
             }
         }
 
-        public List<Advisor> FindAll()
+        public async Task<List<Advisor>> FindAll()
         {
-            return _context.Advisor.ToList();
+            return await _context.Advisor.ToListAsync();
         }
 
         public Advisor FindByName(string name)

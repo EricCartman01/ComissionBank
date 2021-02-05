@@ -15,9 +15,9 @@ namespace ComissionBank.Controllers
         {
             _clientService = clientService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Client> clients = _clientService.FindAll();
+            List<Client> clients = await _clientService.Top(100);
             return View(clients);
         }
 

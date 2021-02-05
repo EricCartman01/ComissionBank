@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComissionBank.Data;
 using ComissionBank.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComissionBank.Services
 {
@@ -20,9 +21,9 @@ namespace ComissionBank.Services
             return _context.House.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefault();
         }
 
-        public List<House> FindAll()
+        public async Task<List<House>> FindAll()
         {
-            return _context.House.ToList();
+            return await _context.House.ToListAsync();
         }
 
         public House FindById(int id)

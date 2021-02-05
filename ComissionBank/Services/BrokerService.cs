@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComissionBank.Data;
 using ComissionBank.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComissionBank.Services
 {
@@ -28,9 +29,14 @@ namespace ComissionBank.Services
             _context.SaveChanges();
         }
 
-        public List<Broker> FindAll()
+        public async Task<List<Broker>> FindAll()
         {
-            return _context.Broker.ToList();
+            return await _context.Broker.ToListAsync();
+        }
+
+        public async Task<List<Broker>> Top(int num)
+        {
+            return await _context.Broker.Take(num).ToListAsync();
         }
 
         public Broker FindById(int id)
